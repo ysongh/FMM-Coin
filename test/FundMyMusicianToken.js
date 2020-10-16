@@ -29,6 +29,10 @@ contract(FundMyMusicianToken, ([deployer, account1]) => {
             const admin = await fundMyMusicianToken.balanceOf(deployer);
             assert.equal(admin.toNumber(), 1000000);
         });
+        it('set token price to 0.0003 Eth', async() => {
+            const price = await fundMyMusicianToken.tokenPrice();
+            assert.equal(price.toNumber(), 300000000000000);
+        });
     });
 
     describe('transfer token', async() => {

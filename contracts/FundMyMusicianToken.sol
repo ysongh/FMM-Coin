@@ -5,6 +5,8 @@ contract FundMyMusicianToken {
   string public symbol = 'FMM';
 
   uint256 public totalSupply;
+  uint256 public tokenPrice;
+  address admin;
 
   mapping(address => uint256) public balanceOf;
 
@@ -14,9 +16,11 @@ contract FundMyMusicianToken {
     uint _value
   );
 
-  constructor(uint256 _initialSupply) public {
+  constructor(uint256 _initialSupply, uint256 _tokenPrice) public {
     balanceOf[msg.sender] = _initialSupply;
     totalSupply = _initialSupply;
+    tokenPrice = _tokenPrice;
+    admin = msg.sender;
   }
 
   function transfer(address _to, uint256 _value) public returns (bool success){
