@@ -54,4 +54,27 @@ contract(FundMyMusicianToken, ([deployer, account1]) => {
             await fundMyMusicianToken.transfer.call(account1, 2000000000, { from: deployer }).should.be.rejected;
         });
     });
+
+    describe('buy token', async() => {
+        it('admin received the correct amount of Eth', async() => {
+            let oldAdminBalanace;
+            oldAdminBalanace = await web3.eth.getBalance(deployer);
+            oldAdminBalanace = new web3.utils.BN(oldAdminBalanace);
+
+            await fundMyMusicianToken.buyToken(300, { from: account1, value: web3.utils.toWei('0.0003', 'Ether') * 300});
+
+            let newAdminBalance;
+            newAdminBalance = await web3.eth.getBalance(deployer);
+            newAdminBalance = new web3.utils.BN(newAdminBalance);
+
+            let price;
+            let total = 0.0003 * 300;
+            price = web3.utils.toWei(total.toString(), 'Ether');
+            price = new web3.utils.BN(price);
+
+            const expectedBalance = oldAdminBalanace.add(price);
+
+            assert.equal(newAdminBalance.toString(), expectedBalance.toString());
+        });
+    });
 })
