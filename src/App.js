@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 
 import FundMyMusicianToken from './abis/FundMyMusicianToken.json';
+import BuyTokenForm from './components/BuyTokenForm';
 
 class App extends Component{
   state = {
@@ -77,6 +78,8 @@ class App extends Component{
           onChange={(e) => this.setState({ amount: e.target.value })}
           value={this.state.amount} />
         <button onClick={this.transferToken.bind(this)}>Transfer</button>
+
+        <BuyTokenForm fmmBlockchain={this.state.fmmBlockchain} account={this.state.account}/>
       </div>
     );
   }
