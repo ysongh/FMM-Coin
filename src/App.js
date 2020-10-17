@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route  } from 'react-router-dom';
 import Web3 from 'web3';
 
 import FundMyMusicianToken from './abis/FundMyMusicianToken.json';
+import TransferTokenForm from './components/TransferTokenForm';
 import BuyTokenForm from './components/BuyTokenForm';
 
 class App extends Component{
@@ -11,8 +12,6 @@ class App extends Component{
     tokenName: '',
     balance: 0,
     fmmBlockchain: null,
-    address: '',
-    amount: 0
   }
 
   async componentWillMount(){
@@ -59,10 +58,6 @@ class App extends Component{
     }
   }
 
-  async transferToken(){
-    await this.state.fmmBlockchain.methods.transfer(this.state.address, this.state.amount).send({ from: this.state.account });
-  }
-
   render(){
     return (
       <Router className="App">
@@ -70,16 +65,7 @@ class App extends Component{
         <p>Your address - {this.state.account}</p>
         <p>Token name - {this.state.tokenName}</p>
         <p>Balance - {this.state.balance}</p>
-        <input
-          type="text"
-          onChange={(e) => this.setState({ address: e.target.value })}
-          value={this.state.address} />
-        <input
-          type="number"
-          onChange={(e) => this.setState({ amount: e.target.value })}
-          value={this.state.amount} />
-        <button onClick={this.transferToken.bind(this)}>Transfer</button>
-
+        <TransferTokenForm fmmBlockchain={this.state.fmmBlockchain} account={this.state.account} />
         <BuyTokenForm fmmBlockchain={this.state.fmmBlockchain} account={this.state.account}/>
       </Router>
     );
