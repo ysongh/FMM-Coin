@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route  } from 'react-router-dom';
 import Web3 from 'web3';
 
 import FundMyMusicianToken from './abis/FundMyMusicianToken.json';
@@ -64,7 +65,7 @@ class App extends Component{
 
   render(){
     return (
-      <div className="App">
+      <Router className="App">
         <h1>Fund My Musician</h1>
         <p>Your address - {this.state.account}</p>
         <p>Token name - {this.state.tokenName}</p>
@@ -80,7 +81,7 @@ class App extends Component{
         <button onClick={this.transferToken.bind(this)}>Transfer</button>
 
         <BuyTokenForm fmmBlockchain={this.state.fmmBlockchain} account={this.state.account}/>
-      </div>
+      </Router>
     );
   }
 }
