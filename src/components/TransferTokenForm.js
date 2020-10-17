@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-const TransferTokenForm = ({ fmmBlockchain, account }) => {
+import { fmmBlockchain } from '../blockchain';
+
+const TransferTokenForm = ({ account }) => {
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState(0);
 

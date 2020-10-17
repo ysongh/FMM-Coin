@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-const BuyTokenForm = ({ fmmBlockchain, account }) => {
+import { fmmBlockchain } from '../blockchain';
+
+const BuyTokenForm = ({ account }) => {
     const [amount, setAmount] = useState(0);
 
     const buyToken = async() => {
