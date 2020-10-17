@@ -75,6 +75,12 @@ contract(FundMyMusicianToken, ([deployer, account1]) => {
             const expectedBalance = oldAdminBalanace.add(price);
 
             assert.equal(newAdminBalance.toString(), expectedBalance.toString());
+
+            // reject if there is not enough tokens to buy
+            await fundMyMusicianToken.buyToken.call(1000000000000, { from: account1, value: web3.utils.toWei('0.0003', 'Ether') * 300}).should.be.rejected;
+
+            // reject if the deployer buy the token
+            await fundMyMusicianToken.buyToken.call(300, { from: deployer, value: web3.utils.toWei('0.0003', 'Ether') * 300}).should.be.rejected;
         });
     });
 })

@@ -37,6 +37,9 @@ contract FundMyMusicianToken {
   }
 
   function buyToken(uint256 _numberOfTokens) public payable{
+    require(balanceOf[admin] >= _numberOfTokens);
+    require(admin != msg.sender);
+
     admin.transfer(msg.value);
 
     balanceOf[admin] -= _numberOfTokens;
