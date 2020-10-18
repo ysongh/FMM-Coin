@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route  } from 'react-router-dom';
 
 import { loadWeb3, loadBlockchainData, fmmBlockchain } from './blockchain';
+import Home from './components/Home';
 import TransferTokenForm from './components/TransferTokenForm';
 import BuyTokenForm from './components/BuyTokenForm';
 
@@ -35,12 +36,9 @@ const App = () => {
 
   return (
     <Router className="App">
-      <h1>Fund My Musician</h1>
-      <p>Your address - {account}</p>
-      <p>Token name - {tokenName}</p>
-      <p>Balance - {balance}</p>
-      <TransferTokenForm account={account} />
-      <BuyTokenForm account={account}/>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/buytoken" component={BuyTokenForm} />
+      <Route exact path="/transfertoken" component={TransferTokenForm} />
     </Router>
   );
 }
