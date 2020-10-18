@@ -1,13 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { fmmBlockchain } from '../blockchain';
+import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../blockchain';
 
-const BuyTokenForm = ({ account }) => {
+const BuyTokenForm = () => {
+    const [walletAddress, setWalletAddress] = useState('');
+    const [balance, setBalance] = useState(0)
     const [amount, setAmount] = useState(0);
+
+    useEffect(() => {
+        async function load(){
+            await loadWeb3();
+        }
+        async function getWalletAddress(){
+            await loadBlockchainData();
+            const web3 = window.web3;
+            const accounts = await web3.eth.getAccounts();
+            setWalletAddress(accounts[0]);
+
+            const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
+            setBalance(balanceOf);
+        }
+
+        load();
+        getWalletAddress();
+      }, []);
 
     const buyToken = async() => {
         try{
-            await fmmBlockchain.methods.buyToken(amount).send({ from: account, value: window.web3.utils.toWei('0.0003', 'Ether') * amount});
+            await fmmBlockchain.methods.buyToken(amount).send({ from: walletAddress, value: window.web3.utils.toWei('0.0003', 'Ether') * amount});
         }
         catch(err){
             console.error(err)
@@ -16,8 +36,16 @@ const BuyTokenForm = ({ account }) => {
 
     return(
         <div className="container mb-5">
-            <h1 className="mt-3 mb-5">Buy Token</h1>
-            <div className="row">
+            <h1 className="mt-3 mb-4">Buy Token</h1>
+
+            <div className="card mb-4">
+                <div className="card-body">
+                    <p className="card-text"><strong>Your wallet adresss:</strong> {walletAddress}</p>
+                    <p className="card-text"><strong>Your token balance:</strong> {balance} FMM Tokens</p>
+                </div>
+            </div>
+
+            <div className="row mb-2">
                 <div className="col-12 col-md-6">
                     <label htmlFor="amount">How many token you would to buy?</label>
                     <div className="input-group mb-3">
