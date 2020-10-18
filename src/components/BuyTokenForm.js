@@ -6,6 +6,7 @@ const BuyTokenForm = () => {
     const [walletAddress, setWalletAddress] = useState('');
     const [balance, setBalance] = useState(0)
     const [amount, setAmount] = useState(0);
+    const [eth, setEth] = useState(0);
 
     useEffect(() => {
         async function load(){
@@ -27,10 +28,22 @@ const BuyTokenForm = () => {
 
     const buyToken = async() => {
         try{
-            await fmmBlockchain.methods.buyToken(amount).send({ from: walletAddress, value: window.web3.utils.toWei('0.0003', 'Ether') * amount});
+            const receipt = await fmmBlockchain.methods.buyToken(amount).send({ from: walletAddress, value: window.web3.utils.toWei('0.0003', 'Ether') * amount});
+            
+            if(receipt.status){
+                setBalance(+balance + +amount);
+                setAmount(0);
+            }
         }
         catch(err){
             console.error(err)
+        }
+    }
+
+    const changeAmount = e => {
+        if(e.target.value >= 0 && e.target.value < 100000){
+            setAmount(e.target.value);
+            setEth((e.target.value * 0.0003).toFixed(4));
         }
     }
 
@@ -51,9 +64,9 @@ const BuyTokenForm = () => {
                     <div className="input-group mb-3">
                         <input
                             name="amount"
-                            type="text"
+                            type="number"
                             className="form-control"
-                            onChange={(e) => setAmount(e.target.value)}
+                            onChange={(e) => changeAmount(e)}
                             value={amount}/>
                         <div className="input-group-append">
                             <span className="input-group-text" id="basic-addon2">FMM Tokens</span>
@@ -61,7 +74,7 @@ const BuyTokenForm = () => {
                     </div>
                 </div>
                 <div className="col-12 col-md-6">
-                    <p className="text-right h1 mt-3">Total Cost: 0 Eth</p>
+                    <p className="text-right h1 mt-3">Total Cost: {eth} Eth</p>
                 </div>
             </div>
             <button className="btn btn-primary btn-lg" onClick={() => buyToken()}>Purchase</button>
