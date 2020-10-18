@@ -15,14 +15,29 @@ const BuyTokenForm = ({ account }) => {
     }
 
     return(
-        <>
-            <h1>Buy Token</h1>
-            <input
-                type="text"
-                onChange={(e) => setAmount(e.target.value)}
-                value={amount} />
-            <button onClick={() => buyToken()}>Buy</button>
-        </>
+        <div className="container mb-5">
+            <h1 className="mt-3 mb-5">Buy Token</h1>
+            <div className="row">
+                <div className="col-12 col-md-6">
+                    <label htmlFor="amount">How many token you would to buy?</label>
+                    <div className="input-group mb-3">
+                        <input
+                            name="amount"
+                            type="text"
+                            className="form-control"
+                            onChange={(e) => setAmount(e.target.value)}
+                            value={amount}/>
+                        <div className="input-group-append">
+                            <span className="input-group-text" id="basic-addon2">FMM Tokens</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12 col-md-6">
+                    <p className="text-right h1 mt-3">Total Cost: 0 Eth</p>
+                </div>
+            </div>
+            <button className="btn btn-primary btn-lg" onClick={() => buyToken()}>Purchase</button>
+        </div>
     )
 }
 
