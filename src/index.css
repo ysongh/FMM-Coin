@@ -7,6 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.btn-primary{
+  background-color: #581B98 !important;
+  color: white !important;
+}
+
 .btn-secondary{
   background-color: #FAEE1C !important;
   color: black !important;
@@ -17,4 +22,8 @@ body {
   width: 100%;
   height: 100vh;
   padding: 7rem 1rem;
+}
+
+.logo{
+  width: 9rem;
 }
