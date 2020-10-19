@@ -23,7 +23,7 @@ const Musicians = () => {
                                     </p>
                                 </div>
                                 <div className="col-sm-2">
-                                <a href="#" className="btn btn-primary">See Music</a>
+                                    <Link to="/musicians/123" className="btn btn-primary">See Music</Link>
                                 </div>
                             </div>
                         </div>
