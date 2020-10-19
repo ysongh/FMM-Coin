@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { firebaseURL } from '../../firebaseUrl';
-import GetCoinImg from '../../images/getcoin.svg';
 
 const Musicians = () => {
     const [musicians, setMusicians] = useState([]);

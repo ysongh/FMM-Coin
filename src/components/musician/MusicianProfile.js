@@ -1,24 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router";
+import axios from 'axios';
 
+import { firebaseURL } from '../../firebaseUrl';
 import GetCoinImg from '../../images/getcoin.svg';
 
 const MusicianProfile = () => {
+    const { id } =  useParams();
+
+    const [musician, setMusician] = useState({});
+
+    useEffect(() => {
+        async function getMusician() {
+            try{
+                const { data } = await axios.get(firebaseURL + '/musicians/' + id + '.json');
+
+                setMusician(data);
+                console.log(data)
+            } catch(err){
+                console.error(err);
+            }
+        }
+        
+        getMusician();
+    }, [id]);
+    
     return(
         <div className="container my-5">
             <div className="row">
                 <div className="col-sm-4">
                     <div className="card mb-3">
                         <div className="card-body">
-                            <img className="img-fluid" src={GetCoinImg} alt="Person" />
-                            <h3 className="card-title text-center">Joe Doe</h3>
-                            <p className="card-text text-center">12 Likes</p>
-                            <a href="#" className="btn btn-primary btn-lg d-block">Give Token</a>
+                            <img className="img-fluid" src={musician.imageUrl} alt="Person" />
+                            <h3 className="card-title text-center">{musician.name}</h3>
+                            <p className="card-text text-center">{musician.likes} Likes</p>
+                            <a href="/" className="btn btn-primary btn-lg d-block">Give Token</a>
                         </div>
                     </div>
                     <div className="card mb-3">
                         <div className="card-body">
                             <h3 className="card-title">Address</h3>
-                            <p className="card-text">0x02fj39df9wki2jfd293d</p>
+                            <p className="card-text">{musician.walletAddress}</p>
                         </div>
                     </div>
                 </div>
@@ -26,7 +48,7 @@ const MusicianProfile = () => {
                     <div className="card mb-3">
                         <div className="card-body">
                             <h3 className="card-title">Tags</h3>
-                            <p className="card-text">Country Music, Jazz</p>
+                            <p className="card-text">{musician.tags}</p>
                         </div>
                     </div>
                     <div className="card">
