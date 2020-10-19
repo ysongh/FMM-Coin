@@ -33,7 +33,7 @@ const App = () => {
       <Route exact path="/musicians/:id" component={MusicianProfile} />
       <Route exact path="/create-profile" component={CreateProfile} />
       <Route exact path="/buytoken" component={BuyTokenForm} />
-      <Route exact path="/transfertoken" component={TransferTokenForm} />
+      <Route exact path="/transfertoken/:musicianaddress" component={TransferTokenForm} />
       <Footer />
     </Router>
   );

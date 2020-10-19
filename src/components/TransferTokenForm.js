@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router";
 
 import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../blockchain';
 
 const TransferTokenForm = () => {
+    const { musicianaddress } =  useParams();
     const [walletAddress, setWalletAddress] = useState('');
     const [balance, setBalance] = useState(0)
-    const [address, setAddress] = useState('');
     const [amount, setAmount] = useState(0);
 
     useEffect(() => {
@@ -28,7 +29,7 @@ const TransferTokenForm = () => {
 
     const transferToken = async() => {
         try{
-            await fmmBlockchain.methods.transfer(address, amount).send({ from: walletAddress });
+            await fmmBlockchain.methods.transfer(musicianaddress, amount).send({ from: walletAddress });
         }
         catch(err){
             console.error(err)
@@ -36,7 +37,7 @@ const TransferTokenForm = () => {
     }
 
     return(
-        <>
+        <div className="container my-5">
             <h1>Transfer Token</h1>
 
             <div className="card mb-4">
@@ -45,17 +46,13 @@ const TransferTokenForm = () => {
                     <p className="card-text"><strong>Your token balance:</strong> {balance} FMM Tokens</p>
                 </div>
             </div>
-
-            <input
-                type="text"
-                onChange={(e) => setAddress(e.target.value)}
-                value={address} />
+            
             <input
                 type="number"
                 onChange={(e) => setAmount(e.target.value)}
                 value={amount} />
             <button onClick={() => transferToken()}>Transfer</button>
-        </>
+        </div>
     )
 }
 

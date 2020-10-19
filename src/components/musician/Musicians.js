@@ -30,14 +30,13 @@ const Musicians = () => {
         getMusicians();
     }, []);
 
-    console.log(musicians)
     return(
         <div className="container mb-5">
             <h1 className="mt-3 mb-4">Musicians</h1>
             <div className="row">
                 { musicians.map(musician => {
                     return(
-                        <div className="col-sm-12">
+                        <div className="col-sm-12" key={musician.id}>
                             <div className="card mb-3">
                                 <div className="card-body">
                                     <div className="row">

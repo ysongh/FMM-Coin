@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { firebaseURL } from '../../firebaseUrl';
@@ -34,7 +35,7 @@ const MusicianProfile = () => {
                             <img className="img-fluid" src={musician.imageUrl} alt="Person" />
                             <h3 className="card-title text-center">{musician.name}</h3>
                             <p className="card-text text-center">{musician.likes} Likes</p>
-                            <a href="/" className="btn btn-primary btn-lg d-block">Give Token</a>
+                            <Link to={`/transfertoken/${musician.walletAddress}`} className="btn btn-primary btn-lg d-block">Give Token</Link>
                         </div>
                     </div>
                     <div className="card mb-3">
