@@ -22,7 +22,7 @@ const Navbar = () => {
                             <Link className="nav-link" to="/buytoken">Buy Token</Link>
                         </li>
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                            <Link className="nav-link" to="/">Musicians</Link>
+                            <Link className="nav-link" to="/musicians">Musicians</Link>
                         </li>
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                             <Link className="nav-link" to="/">Login</Link>

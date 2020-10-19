@@ -15,7 +15,7 @@ const Footer = () => {
                         <h5>Quick Link</h5>
                         <Link to="/">Home</Link><br />
                         <Link to="/buytoken">Buy Token</Link><br />
-                        <Link to="/">Musicians</Link><br />
+                        <Link to="/musicians">Musicians</Link><br />
                         <Link to="/">Get Started</Link>
                     </div>
                     <div className="col-6 col-md-3 mt-3">

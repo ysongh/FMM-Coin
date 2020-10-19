@@ -5,6 +5,7 @@ import { loadWeb3, loadBlockchainData } from './blockchain';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './components/Home';
+import Musicians from './components/musician/Musicians';
 import TransferTokenForm from './components/TransferTokenForm';
 import BuyTokenForm from './components/BuyTokenForm';
 
@@ -26,6 +27,7 @@ const App = () => {
     <Router className="App">
       <Navbar />
       <Route exact path="/" component={Home} />
+      <Route exact path="/musicians" component={Musicians} />
       <Route exact path="/buytoken" component={BuyTokenForm} />
       <Route exact path="/transfertoken" component={TransferTokenForm} />
       <Footer />
