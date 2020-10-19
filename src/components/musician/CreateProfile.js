@@ -1,9 +1,32 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
+import { firebaseURL } from '../../firebaseUrl';
 
 const CreateProfile = () => {
+    const history = useHistory();
+
     const [name, setName] = useState('');
     const [walletAddress, setWalletAddress] = useState('');
-    const [tags, setTags] = useState('')
+    const [tags, setTags] = useState('');
+
+    const createProfile = async () => {
+        try{
+            const musicianInfo = {
+                name,
+                walletAddress,
+                tags,
+                likes: 0
+            }
+            
+            await axios.post(firebaseURL + '/musicians.json', musicianInfo);
+
+            history.push("/musicians");
+        } catch(err){
+            console.error(err);
+        }
+    }
 
     return(
         <div className="container my-5">
@@ -43,7 +66,7 @@ const CreateProfile = () => {
                             onChange={(e) => setTags(e.target.value)} 
                         />
                     </div>
-                    <button className="btn btn-primary btn-lg">Create</button>
+                    <button className="btn btn-primary btn-lg" onClick={() => createProfile()}>Create</button>
                 </div>
             </div>
         </div>

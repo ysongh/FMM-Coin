@@ -1,0 +1,1 @@
+export const firebaseURL = "https://fund-my-musician.firebaseio.com/";
