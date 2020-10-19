@@ -22,6 +22,11 @@ body {
   color: black !important;
 }
 
+.img-fluid{
+  width: 100%;
+  height: 300px;
+}
+
 .hero-img{
   background-image: url(./images/hero.svg);
   width: 100%;

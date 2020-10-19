@@ -10,6 +10,7 @@ const CreateProfile = () => {
     const [name, setName] = useState('');
     const [walletAddress, setWalletAddress] = useState('');
     const [tags, setTags] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
 
     const createProfile = async () => {
         try{
@@ -17,6 +18,7 @@ const CreateProfile = () => {
                 name,
                 walletAddress,
                 tags,
+                imageUrl,
                 likes: 0
             }
             
@@ -64,6 +66,16 @@ const CreateProfile = () => {
                             placeholder="ex - Jazz"
                             value={tags}
                             onChange={(e) => setTags(e.target.value)} 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="text">Image URL</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="Image URL"
+                            value={imageUrl}
+                            onChange={(e) => setImageUrl(e.target.value)} 
                         />
                     </div>
                     <button className="btn btn-primary btn-lg" onClick={() => createProfile()}>Create</button>
