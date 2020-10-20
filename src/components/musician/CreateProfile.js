@@ -33,7 +33,7 @@ const CreateProfile = () => {
     return(
         <div className="container my-5">
             <div className="card w-50 m-auto">
-                <h5 className="card-header primary-color text-center py-4">Create your profile</h5>
+                <h5 className="card-header primary-bg text-center py-4">Create your profile</h5>
                 <div className="card-body">
                     <div className="form-group">
                         <label htmlFor="text">Name</label>

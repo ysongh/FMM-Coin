@@ -8,6 +8,10 @@ body {
 }
 
 .primary-color{
+  color: #581B98 !important;
+}
+
+.primary-bg{
   background-color: #581B98 !important;
   color: white !important;
 }

@@ -21,10 +21,10 @@ const Home = () => {
             </header>
             <main className="container">
                 <section className="py-2">
-                    <h2 className="text-center my-5">No Cards Needed to Donate</h2>
+                    <h2 className="primary-color text-center my-5 display-4">Crypto Wallet Required</h2>
                 </section>
 
-                <section>
+                <section className="mb-5">
                     <h2 className="mt-5">Give Token to the Musicians</h2>
                     <div className="row">
                         <div className="col-12 col-md-6">
