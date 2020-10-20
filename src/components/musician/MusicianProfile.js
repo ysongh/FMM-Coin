@@ -25,6 +25,17 @@ const MusicianProfile = () => {
         
         getMusician();
     }, [id]);
+
+    const addLike = async musician => {
+        try{
+            musician.likes += 1;
+            
+            const { data } = await axios.put(firebaseURL + '/musicians/' + id + '.json', musician);
+            setMusician(data);
+        } catch(err){
+            console.error(err);
+        }
+    }
     
     return(
         <div className="container my-5">
@@ -34,7 +45,9 @@ const MusicianProfile = () => {
                         <div className="card-body">
                             <img className="img-fluid" src={musician.imageUrl} alt="Person" />
                             <h3 className="card-title text-center">{musician.name}</h3>
-                            <p className="card-text text-center">{musician.likes} Likes</p>
+                            <p className="card-text text-center">
+                                {musician.likes} Likes <button className="btn btn-secondary" onClick={() => addLike(musician)}>L</button>
+                            </p>
                             <Link to={`/transfertoken/${musician.walletAddress}`} className="btn btn-primary btn-lg d-block">Give Token</Link>
                         </div>
                     </div>
