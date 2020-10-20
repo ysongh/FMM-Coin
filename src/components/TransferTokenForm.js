@@ -39,7 +39,7 @@ const TransferTokenForm = ({ musicianAddress }) => {
 
     return(
         <div className="container my-5">
-            <div className="modal fade" id="confirmModal" tabindex="-1" role="dialog">
+            <div className="modal fade" id="confirmModal" tabIndex="-1" role="dialog">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
