@@ -20,6 +20,8 @@ const Musicians = () => {
                     });
                 }
 
+                musiciansList.sort((a, b) => b.likes - a.likes);
+
                 setMusicians(musiciansList);
                 console.log(musiciansList)
             } catch(err){
