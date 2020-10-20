@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router";
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { firebaseURL } from '../../firebaseUrl';
 import GetCoinImg from '../../images/getcoin.svg';
+import TransferTokenForm from '../TransferTokenForm';
 
 const MusicianProfile = () => {
     const { id } =  useParams();
@@ -48,12 +48,14 @@ const MusicianProfile = () => {
                             <p className="card-text text-center">
                                 {musician.likes} Likes <button className="btn btn-secondary" onClick={() => addLike(musician)}>L</button>
                             </p>
-                            <Link to={`/transfertoken/${musician.walletAddress}`} className="btn btn-primary btn-lg d-block">Give Token</Link>
+                            <button className="btn btn-primary btn-lg d-block m-auto" data-toggle="modal" data-target="#confirmModal">
+                                Give Token
+                            </button>
                         </div>
                     </div>
                     <div className="card mb-3">
                         <div className="card-body">
-                            <h3 className="card-title">Address</h3>
+                            <h3 className="card-title">Wallet Address</h3>
                             <p className="card-text">{musician.walletAddress}</p>
                         </div>
                     </div>
@@ -93,6 +95,7 @@ const MusicianProfile = () => {
                     </div>
                 </div>
             </div>
+            <TransferTokenForm musicianAddress={musician.walletAddress} />
         </div>
     );
 };
