@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, setAmount, transferToken }) => {
+const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, setAmount, transferToken, loading }) => {
     return(
         <div className="container my-5">
             <div className="modal fade" id="confirmModal" tabIndex="-1" role="dialog">
@@ -12,7 +12,7 @@ const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, se
                             </button>
                         </div>
                         <div className="modal-body">
-                            <h3>Transfer Tokens</h3>
+                            <h3>Send Tokens</h3>
                             <div className="card mb-4">
                                 <div className="card-body">
                                     <p className="card-text"><strong>Your wallet adresss:</strong> {walletAddress}</p>
@@ -24,7 +24,12 @@ const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, se
                                 type="number"
                                 onChange={(e) => setAmount(e.target.value)}
                                 value={amount} />
-                            <button onClick={() => transferToken()}>Transfer</button>
+                            <button
+                                className="btn btn-primary"
+                                onClick={() => transferToken()}
+                                disabled={loading}>
+                                    {loading ? 'Pending' : 'Send'}
+                            </button>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>

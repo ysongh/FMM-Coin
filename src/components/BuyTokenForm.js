@@ -5,8 +5,9 @@ import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../blockchain';
 const BuyTokenForm = () => {
     const [walletAddress, setWalletAddress] = useState('');
     const [balance, setBalance] = useState(0)
-    const [amount, setAmount] = useState(0);
-    const [eth, setEth] = useState(0);
+    const [amount, setAmount] = useState(1);
+    const [eth, setEth] = useState(0.0003);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function load(){
@@ -28,15 +29,18 @@ const BuyTokenForm = () => {
 
     const buyToken = async() => {
         try{
+            setLoading(true);
             const receipt = await fmmBlockchain.methods.buyToken(amount).send({ from: walletAddress, value: window.web3.utils.toWei('0.0003', 'Ether') * amount});
             
             if(receipt.status){
                 setBalance(+balance + +amount);
                 setAmount(0);
             }
+            setLoading(false);
         }
         catch(err){
-            console.error(err)
+            console.error(err);
+            setLoading(false);
         }
     }
 
@@ -77,7 +81,12 @@ const BuyTokenForm = () => {
                     <p className="text-right h1 mt-3">Total Cost: {eth} Eth</p>
                 </div>
             </div>
-            <button className="btn btn-primary btn-lg" onClick={() => buyToken()}>Purchase</button>
+            <button
+                className="btn btn-primary btn-lg"
+                onClick={() => buyToken()}
+                disabled={loading}>
+                    {loading ? 'Pending' : 'Purchase'}
+            </button>
         </div>
     )
 }

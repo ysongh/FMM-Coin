@@ -13,6 +13,7 @@ const MusicianProfile = () => {
     const [walletAddress, setWalletAddress] = useState('');
     const [balance, setBalance] = useState(0)
     const [amount, setAmount] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const [musician, setMusician] = useState({});
 
@@ -49,6 +50,7 @@ const MusicianProfile = () => {
 
     const addLike = async musician => {
         try{
+            setLoading(true);
             const receipt = await fmmBlockchain.methods.likesMusician().send({ from: walletAddress });
 
             if(receipt.status){
@@ -57,20 +59,26 @@ const MusicianProfile = () => {
                 const { data } = await axios.put(firebaseURL + '/musicians/' + id + '.json', musician);
                 setMusician(data);
             }
+
+            setLoading(false);
         } catch(err){
             console.error(err);
+            setLoading(false);
         }
     }
 
     const transferToken = async() => {
         try{
+            setLoading(true);
             await fmmBlockchain.methods.transfer(musician.walletAddress, amount).send({ from: walletAddress });
             
             setBalance(+balance - +amount);
             setAmount(0);
+            setLoading(false);
         }
         catch(err){
-            console.error(err)
+            console.error(err);
+            setLoading(false);
         }
     }
     
@@ -83,7 +91,7 @@ const MusicianProfile = () => {
                             <img className="img-fluid" src={musician.imageUrl} alt="Person" />
                             <h3 className="card-title text-center">{musician.name}</h3>
                             <p className="card-text text-center">
-                                {musician.likes} Likes <button className="btn btn-secondary" onClick={() => addLike(musician)}>L</button>
+                                {musician.likes} Likes <button className="btn btn-secondary" onClick={() => addLike(musician)} disabled={loading}>{loading ? 'Pending' : '1 FMM to Like'}</button>
                             </p>
                             <button className="btn btn-primary btn-lg d-block m-auto" data-toggle="modal" data-target="#confirmModal">
                                 Give Token
@@ -138,7 +146,8 @@ const MusicianProfile = () => {
                 balance={balance}
                 amount={amount}
                 setAmount={setAmount}
-                transferToken={transferToken} />
+                transferToken={transferToken}
+                loading={loading} />
         </div>
     );
 };
