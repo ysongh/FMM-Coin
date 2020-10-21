@@ -6,6 +6,7 @@ import { firebaseURL } from '../../firebaseUrl';
 import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../../blockchain';
 import GetCoinImg from '../../images/getcoin.svg';
 import TransferTokenForm from '../TransferTokenForm';
+import AddMusicModal from './AddMusicModal';
 
 const MusicianProfile = () => {
     const { id } =  useParams();
@@ -13,6 +14,7 @@ const MusicianProfile = () => {
     const [walletAddress, setWalletAddress] = useState('');
     const [balance, setBalance] = useState(0)
     const [amount, setAmount] = useState(0);
+    const [videoUrl, setVideoUrl] = useState('');
     const [loading, setLoading] = useState(false);
 
     const [musician, setMusician] = useState({});
@@ -114,7 +116,13 @@ const MusicianProfile = () => {
                     </div>
                     <div className="card">
                         <div className="card-body">
-                            <h3 className="card-title">Videos</h3>
+                            <div className="d-flex justify-content-between">
+                                <h3 className="card-title">Videos</h3>
+                                <button className="btn btn-primary" data-toggle="modal" data-target="#addMusicModal">
+                                    Add Video
+                                </button>
+                            </div>
+                            
 
                             <div className="row">
                                 <div className="col-12 col-md-6 col-lg-4 mb-3">
@@ -148,6 +156,9 @@ const MusicianProfile = () => {
                 setAmount={setAmount}
                 transferToken={transferToken}
                 loading={loading} />
+            <AddMusicModal
+                videoUrl={videoUrl}
+                setVideoUrl={setVideoUrl} />
         </div>
     );
 };
