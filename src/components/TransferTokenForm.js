@@ -20,12 +20,19 @@ const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, se
                                     <p className="card-text"><strong>Your token balance:</strong> {balance} FMM Tokens</p>
                                 </div>
                             </div>
-                            <input
-                                type="number"
-                                onChange={(e) => setAmount(e.target.value)}
-                                value={amount} />
+                            <div className="input-group mb-3">
+                                <input
+                                    name="amount"
+                                    type="number"
+                                    className="form-control"
+                                    onChange={(e) => setAmount(e.target.value)}
+                                    value={amount}/>
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="basic-addon2">FMM Tokens</span>
+                                </div>
+                            </div>
                             <button
-                                className="btn btn-primary"
+                                className="btn btn-primary btn-lg d-block m-auto"
                                 onClick={() => transferToken()}
                                 disabled={loading}>
                                     {loading ? 'Pending' : 'Send'}
