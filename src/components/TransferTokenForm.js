@@ -1,42 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../blockchain';
-
-const TransferTokenForm = ({ musicianAddress }) => {
-    const [walletAddress, setWalletAddress] = useState('');
-    const [balance, setBalance] = useState(0)
-    const [amount, setAmount] = useState(0);
-
-    useEffect(() => {
-        async function load(){
-            await loadWeb3();
-        }
-        async function getWalletAddress(){
-            await loadBlockchainData();
-            const web3 = window.web3;
-            const accounts = await web3.eth.getAccounts();
-            setWalletAddress(accounts[0]);
-
-            const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
-            setBalance(balanceOf);
-        }
-
-        load();
-        getWalletAddress();
-      }, []);
-
-    const transferToken = async() => {
-        try{
-            await fmmBlockchain.methods.transfer(musicianAddress, amount).send({ from: walletAddress });
-            
-            setBalance(+balance - +amount);
-            setAmount(0);
-        }
-        catch(err){
-            console.error(err)
-        }
-    }
-
+const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, setAmount, transferToken }) => {
     return(
         <div className="container my-5">
             <div className="modal fade" id="confirmModal" tabIndex="-1" role="dialog">

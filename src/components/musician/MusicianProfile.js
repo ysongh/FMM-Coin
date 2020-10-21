@@ -3,15 +3,34 @@ import { useParams } from "react-router";
 import axios from 'axios';
 
 import { firebaseURL } from '../../firebaseUrl';
+import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../../blockchain';
 import GetCoinImg from '../../images/getcoin.svg';
 import TransferTokenForm from '../TransferTokenForm';
 
 const MusicianProfile = () => {
     const { id } =  useParams();
 
+    const [walletAddress, setWalletAddress] = useState('');
+    const [balance, setBalance] = useState(0)
+    const [amount, setAmount] = useState(0);
+
     const [musician, setMusician] = useState({});
 
     useEffect(() => {
+        async function load(){
+            await loadWeb3();
+        }
+
+        async function getWalletAddress(){
+            await loadBlockchainData();
+            const web3 = window.web3;
+            const accounts = await web3.eth.getAccounts();
+            setWalletAddress(accounts[0]);
+
+            const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
+            setBalance(balanceOf);
+        }
+
         async function getMusician() {
             try{
                 const { data } = await axios.get(firebaseURL + '/musicians/' + id + '.json');
@@ -22,7 +41,9 @@ const MusicianProfile = () => {
                 console.error(err);
             }
         }
-        
+
+        load();
+        getWalletAddress();
         getMusician();
     }, [id]);
 
@@ -34,6 +55,18 @@ const MusicianProfile = () => {
             setMusician(data);
         } catch(err){
             console.error(err);
+        }
+    }
+
+    const transferToken = async() => {
+        try{
+            await fmmBlockchain.methods.transfer(musician.walletAddress, amount).send({ from: walletAddress });
+            
+            setBalance(+balance - +amount);
+            setAmount(0);
+        }
+        catch(err){
+            console.error(err)
         }
     }
     
@@ -95,7 +128,13 @@ const MusicianProfile = () => {
                     </div>
                 </div>
             </div>
-            <TransferTokenForm musicianAddress={musician.walletAddress} />
+            <TransferTokenForm
+                musicianAddress={musician.walletAddress}
+                walletAddress={walletAddress}
+                balance={balance}
+                amount={amount}
+                setAmount={setAmount}
+                transferToken={transferToken} />
         </div>
     );
 };
