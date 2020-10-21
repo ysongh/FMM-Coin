@@ -109,22 +109,22 @@ const MusicianProfile = () => {
                             <h3 className="card-title">Videos</h3>
 
                             <div className="row">
-                                <div className="col-sm-4 mb-3">
+                                <div className="col-12 col-md-6 col-lg-4 mb-3">
                                     <img className="img-fluid" src={GetCoinImg} alt="Person" />
                                 </div>
-                                <div className="col-sm-4 mb-3">
+                                <div className="col-12 col-md-6 col-lg-4 mb-3">
                                     <img className="img-fluid" src={GetCoinImg} alt="Person" />
                                 </div>
-                                <div className="col-sm-4 mb-3">
+                                <div className="col-12 col-md-6 col-lg-4 mb-3">
                                     <img className="img-fluid" src={GetCoinImg} alt="Person" />
                                 </div>
-                                <div className="col-sm-4 mb-3">
+                                <div className="col-12 col-md-6 col-lg-4 mb-3">
                                     <img className="img-fluid" src={GetCoinImg} alt="Person" />
                                 </div>
-                                <div className="col-sm-4 mb-3">
+                                <div className="col-12 col-md-6 col-lg-4 mb-3">
                                     <img className="img-fluid" src={GetCoinImg} alt="Person" />
                                 </div>
-                                <div className="col-sm-4 mb-3">
+                                <div className="col-12 col-md-6 col-lg-4 mb-3">
                                     <img className="img-fluid" src={GetCoinImg} alt="Person" />
                                 </div>
                             </div>
