@@ -6,7 +6,7 @@ require('chai')
 
 const FundMyMusicianToken = artifacts.require('./FundMyMusicianToken.sol');
 
-contract(FundMyMusicianToken, ([deployer, account1]) => {
+contract(FundMyMusicianToken, ([deployer, account1, , account3]) => {
     let fundMyMusicianToken;
 
     before(async() => {
@@ -81,6 +81,20 @@ contract(FundMyMusicianToken, ([deployer, account1]) => {
 
             // reject if the deployer buy the token
             await fundMyMusicianToken.buyToken.call(300, { from: deployer, value: web3.utils.toWei('0.0003', 'Ether') * 300}).should.be.rejected;
+        });
+    });
+
+    describe('like a musician', async() => {
+        it('sender pay 1 FMM token to like a musician music', async() => {
+            const oldBalanace = await fundMyMusicianToken.balanceOf(account1);
+
+            await fundMyMusicianToken.likesMusician({ from: account1 });
+
+            const newBalance = await fundMyMusicianToken.balanceOf(account1);
+            assert.notEqual(newBalance.toString(), oldBalanace.toString());
+
+            // reject if there is zero FMM token
+            await fundMyMusicianToken.likesMusician.call({ from: account3 }).should.be.rejected;
         });
     });
 })
