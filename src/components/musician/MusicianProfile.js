@@ -49,10 +49,14 @@ const MusicianProfile = () => {
 
     const addLike = async musician => {
         try{
-            musician.likes += 1;
+            const receipt = await fmmBlockchain.methods.likesMusician().send({ from: walletAddress });
+
+            if(receipt.status){
+                musician.likes += 1;
             
-            const { data } = await axios.put(firebaseURL + '/musicians/' + id + '.json', musician);
-            setMusician(data);
+                const { data } = await axios.put(firebaseURL + '/musicians/' + id + '.json', musician);
+                setMusician(data);
+            }
         } catch(err){
             console.error(err);
         }
