@@ -39,6 +39,8 @@ const BuyTokenForm = () => {
             if(receipt.status){
                 setBalance(+balance + +amount);
                 setAmount(0);
+                setEthBalance(ethBalance - eth);
+                setEth(0);
             }
             setLoading(false);
         }
@@ -59,15 +61,16 @@ const BuyTokenForm = () => {
         <div className="container mb-5">
             <h1 className="mt-3 mb-4">Buy Token</h1>
 
-            <div className="card mb-4">
-                <div className="card-body">
-                    <p className="card-text"><strong>Your wallet adresss:</strong> {walletAddress}</p>
-                    <p className="card-text"><strong>Your token balance:</strong> {balance} FMM Tokens</p>
-                    <p className="card-text"><strong>Your ETH balance:</strong> {ethBalance} ETH</p>
+            <div className="row">
+                <div className="col-12 col-md-6">
+                    <div className="card mb-4">
+                        <div className="card-body">
+                            <p className="card-text"><strong>Your wallet adresss:</strong> {walletAddress}</p>
+                            <p className="card-text"><strong>Your token balance:</strong> {balance} FMM</p>
+                            <p className="card-text"><strong>Your ETH balance:</strong> {ethBalance} ETH</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div className="row mb-2">
                 <div className="col-12 col-md-6">
                     <label htmlFor="amount">How many token you would to buy?</label>
                     <div className="input-group mb-3">
@@ -78,20 +81,18 @@ const BuyTokenForm = () => {
                             onChange={(e) => changeAmount(e)}
                             value={amount}/>
                         <div className="input-group-append">
-                            <span className="input-group-text" id="basic-addon2">FMM Tokens</span>
+                            <span className="input-group-text" id="basic-addon2">FMM</span>
                         </div>
                     </div>
-                </div>
-                <div className="col-12 col-md-6">
-                    <p className="text-right h1 mt-3">Total Cost: {eth} ETH</p>
+                    <p className="lead mt-3">Total Cost: {eth} ETH</p>
+                    <button
+                        className="btn btn-primary btn-lg"
+                        onClick={() => buyToken()}
+                        disabled={loading}>
+                            {loading ? 'Pending' : 'Purchase'}
+                    </button>
                 </div>
             </div>
-            <button
-                className="btn btn-primary btn-lg"
-                onClick={() => buyToken()}
-                disabled={loading}>
-                    {loading ? 'Pending' : 'Purchase'}
-            </button>
         </div>
     )
 }
