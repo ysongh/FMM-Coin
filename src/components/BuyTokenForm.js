@@ -29,6 +29,8 @@ const BuyTokenForm = () => {
 
         load();
         getWalletAddress();
+        
+        window.scrollTo(0, 0);
       }, []);
 
     const buyToken = async() => {

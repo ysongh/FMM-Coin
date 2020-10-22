@@ -30,6 +30,8 @@ const Musicians = () => {
         }
         
         getMusicians();
+        
+        window.scrollTo(0, 0);
     }, []);
 
     return(

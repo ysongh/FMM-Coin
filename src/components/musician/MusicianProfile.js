@@ -48,6 +48,8 @@ const MusicianProfile = () => {
         load();
         getWalletAddress();
         getMusician();
+
+        window.scrollTo(0, 0);
     }, [id]);
 
     const addLike = async musician => {
