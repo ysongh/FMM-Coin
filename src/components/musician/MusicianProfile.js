@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { firebaseURL } from '../../firebaseUrl';
 import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../../blockchain';
-import GetCoinImg from '../../images/getcoin.svg';
+import VideoImg from '../../images/video.png';
 import TransferTokenForm from '../TransferTokenForm';
 import AddMusicModal from './AddMusicModal';
 
@@ -116,7 +116,7 @@ const MusicianProfile = () => {
                     </div>
                     <div className="card">
                         <div className="card-body">
-                            <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between mb-3">
                                 <h3 className="card-title">Videos</h3>
                                 <button className="btn btn-primary" data-toggle="modal" data-target="#addMusicModal">
                                     Add Video
@@ -125,23 +125,17 @@ const MusicianProfile = () => {
                             
 
                             <div className="row">
-                                <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                    <img className="img-fluid" src={GetCoinImg} alt="Person" />
+                                <div className="col-12 col-md-6 mb-3">
+                                    <img className="img-fluid" src={VideoImg} alt="Person" />
                                 </div>
-                                <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                    <img className="img-fluid" src={GetCoinImg} alt="Person" />
+                                <div className="col-12 col-md-6 mb-3">
+                                    <img className="img-fluid" src={VideoImg} alt="Person" />
                                 </div>
-                                <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                    <img className="img-fluid" src={GetCoinImg} alt="Person" />
+                                <div className="col-12 col-md-6 mb-3">
+                                    <img className="img-fluid" src={VideoImg} alt="Person" />
                                 </div>
-                                <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                    <img className="img-fluid" src={GetCoinImg} alt="Person" />
-                                </div>
-                                <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                    <img className="img-fluid" src={GetCoinImg} alt="Person" />
-                                </div>
-                                <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                    <img className="img-fluid" src={GetCoinImg} alt="Person" />
+                                <div className="col-12 col-md-6 mb-3">
+                                    <img className="img-fluid" src={VideoImg} alt="Person" />
                                 </div>
                             </div>
                         </div>
