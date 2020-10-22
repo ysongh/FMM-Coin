@@ -6,6 +6,7 @@ const BuyTokenForm = () => {
     const [walletAddress, setWalletAddress] = useState('');
     const [balance, setBalance] = useState(0)
     const [amount, setAmount] = useState(1);
+    const [ethBalance, setEthBalance] = useState(0);
     const [eth, setEth] = useState(0.0003);
     const [loading, setLoading] = useState(false);
 
@@ -18,6 +19,9 @@ const BuyTokenForm = () => {
             const web3 = window.web3;
             const accounts = await web3.eth.getAccounts();
             setWalletAddress(accounts[0]);
+
+            const ethBalance = await web3.eth.getBalance(accounts[0]);
+            setEthBalance(web3.utils.fromWei(ethBalance, 'ether'));
 
             const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
             setBalance(balanceOf);
@@ -59,6 +63,7 @@ const BuyTokenForm = () => {
                 <div className="card-body">
                     <p className="card-text"><strong>Your wallet adresss:</strong> {walletAddress}</p>
                     <p className="card-text"><strong>Your token balance:</strong> {balance} FMM Tokens</p>
+                    <p className="card-text"><strong>Your ETH balance:</strong> {ethBalance} ETH</p>
                 </div>
             </div>
 
@@ -78,7 +83,7 @@ const BuyTokenForm = () => {
                     </div>
                 </div>
                 <div className="col-12 col-md-6">
-                    <p className="text-right h1 mt-3">Total Cost: {eth} Eth</p>
+                    <p className="text-right h1 mt-3">Total Cost: {eth} ETH</p>
                 </div>
             </div>
             <button
