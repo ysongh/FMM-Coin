@@ -35,6 +35,6 @@ export const loadBlockchainData = async () => {
       const blockchain = new web3.eth.Contract(abi, address);
       fmmBlockchain = blockchain;
     }else{
-      window.alert('Contract is not deployed to detected network')
+      window.alert('Contract is not deployed to detected network. Try using Kovan Test Network.')
     }
   }

@@ -1,3 +1,8 @@
+const keys = require('./config');
+
+const HDWalletProvider = require('truffle-hdwallet-provider-privkey');
+const endpointUrl = "https://poa-kovan.gateway.pokt.network/v1/" + keys.applicationId;
+
 module.exports = {
   networks: {
     development: {
@@ -5,6 +10,19 @@ module.exports = {
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },
+    kovan: {
+      provider: function() {
+        return new HDWalletProvider(
+          //private keys array
+          [keys.privateKey],
+          //url to ethereum node
+          endpointUrl
+        )
+      },
+      gas: 5000000,
+      gasPrice: 25000000000,
+      network_id: 42
+    }
   },
 
   // Set default mocha options here, use special reporters etc.
