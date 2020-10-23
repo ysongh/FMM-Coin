@@ -63,7 +63,7 @@ const BuyTokenForm = () => {
         <div className="container mb-5">
             <h1 className="mt-3 mb-4">Buy Token</h1>
 
-            <div className="row">
+            <div className="row" style={{ height: '18rem'}}>
                 <div className="col-12 col-md-6">
                     <div className="card mb-4">
                         <div className="card-body">
