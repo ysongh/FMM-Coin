@@ -52,6 +52,9 @@ contract(FundMyMusicianToken, ([deployer, account1, , account3]) => {
 
             // reject if there is not enough tokens for the sender to transfer
             await fundMyMusicianToken.transfer.call(account1, 2000000000, { from: deployer }).should.be.rejected;
+
+            // reject if the sender transfer zero token
+            await fundMyMusicianToken.transfer.call(account1, 0, { from: deployer }).should.be.rejected;
         });
     });
 
