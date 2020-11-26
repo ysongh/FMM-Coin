@@ -5,6 +5,8 @@ import axios from 'axios';
 import { firebaseURL } from '../../firebaseUrl';
 import Star from '../../images/star.svg';
 
+const tags = ["Rock", "Jazz", "Pop", "Hip Hop", "Folk", "Country", "Other"]
+
 const Musicians = () => {
     const [musicians, setMusicians] = useState([]);
 
@@ -43,48 +45,17 @@ const Musicians = () => {
                     <div className="card bg-light">
                         <div className="card-body">
                             <h4>Filter By:</h4>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                <label className="form-check-label" htmlFor="defaultCheck1">
-                                    Rock
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="defaultCheck2" />
-                                <label className="form-check-label" htmlFor="defaultCheck2">
-                                    Jazz
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="defaultCheck3" />
-                                <label className="form-check-label" htmlFor="defaultCheck3">
-                                    Pop
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="defaultCheck4" />
-                                <label className="form-check-label" htmlFor="defaultCheck4">
-                                    Hip Hop
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="defaultCheck5" />
-                                <label className="form-check-label" htmlFor="defaultCheck5">
-                                    Folk
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="defaultCheck6" />
-                                <label className="form-check-label" htmlFor="defaultCheck6">
-                                    Country
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="defaultCheck7" />
-                                <label className="form-check-label" htmlFor="defaultCheck7">
-                                    Other
-                                </label>
-                            </div>
+
+                            { tags.map(tag => {
+                                return(
+                                    <div className="form-check" key={tag}>
+                                        <input className="form-check-input" type="radio" name="radiotype" value="" id={`radio${tag}`} />
+                                        <label className="form-check-label" htmlFor={`radio${tag}`}>
+                                            {tag}
+                                        </label>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
