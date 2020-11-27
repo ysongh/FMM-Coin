@@ -79,7 +79,7 @@ const Musicians = () => {
                                             <div className="col-sm-6">
                                                 <h5 className="card-title h2">{musician.name}</h5>
                                                 <p className="card-text h5 mb-4">
-                                                    <strong>Tags:</strong> {musician.tags}
+                                                    <strong>Tags:</strong> <span className="badge badge-pill btn-secondary">{musician.tags}</span>
                                                 </p>
                                                 <Link to={`/musicians/${musician.id}`} className="btn btn-primary btn-lg mt-5">See Music</Link>
                                             </div>

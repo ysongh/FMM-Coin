@@ -113,7 +113,7 @@ const MusicianProfile = () => {
                     <div className="card mb-3">
                         <div className="card-body">
                             <h3 className="card-title">Tags</h3>
-                            <p className="card-text">{musician.tags}</p>
+                            <p className="card-text"><span className="badge badge-pill btn-secondary">{musician.tags}</span></p>
                         </div>
                     </div>
                     <div className="card">
