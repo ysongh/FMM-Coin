@@ -8,7 +8,7 @@ const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, se
                     <div className="modal-content">
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
@@ -31,15 +31,15 @@ const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, se
                                     <span className="input-group-text" id="basic-addon2">FMM Tokens</span>
                                 </div>
                             </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-light" data-dismiss="modal">Cancel</button>
                             <button
-                                className="btn btn-primary btn-lg d-block m-auto"
+                                className="btn btn-primary"
                                 onClick={() => transferToken()}
                                 disabled={loading}>
                                     {loading ? 'Pending' : 'Send'}
                             </button>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
