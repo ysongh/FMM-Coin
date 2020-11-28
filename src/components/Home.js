@@ -31,18 +31,18 @@ const Home = () => {
                             <img className="img-fluid" src={GiveCoinImg} alt="Give Coin" />
                         </div>
                         <div className="col-12 col-md-6">
-                            <p className="mt-5">1) Purchase FMM token with ETH</p>
-                            <p>2) Watch vidoes of the musician</p>
-                            <p>3) Send FMM token to your favorite musician</p>
+                            <p className="mt-4"><span className="badge badge-pill btn-secondary">1</span> Purchase FMM token with ETH</p>
+                            <p><span className="badge badge-pill btn-secondary">2</span> Watch vidoes of the musician</p>
+                            <p><span className="badge badge-pill btn-secondary">3</span> Send FMM token to your favorite musician</p>
                         </div>
                     </div>
                     <h2 className="text-right mt-5">Earn Token as Musicians</h2>
                     <div className="row">
                         <div className="col-12 col-md-6">
-                            <p className="mt-5">1) Create an account and profile</p>
-                            <p>2) Add your wallet address</p>
-                            <p>3) Upload your video of playing music</p>
-                            <p>4) Sell your token for funds</p>
+                            <p className="mt-5"><span className="badge badge-pill btn-secondary">1</span> Create an account and profile</p>
+                            <p><span className="badge badge-pill btn-secondary">2</span> Add your wallet address</p>
+                            <p><span className="badge badge-pill btn-secondary">3</span> Upload your video of playing music</p>
+                            <p><span className="badge badge-pill btn-secondary">4</span> Sell your token for funds</p>
                         </div>
                         <div className="col-12 col-md-6">
                             <img className="img-fluid" src={GetCoinImg} alt="Get Coin" />
