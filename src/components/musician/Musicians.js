@@ -5,7 +5,7 @@ import axios from 'axios';
 import { firebaseURL } from '../../firebaseUrl';
 import Star from '../../images/star.svg';
 
-const tags = ["Rock", "Jazz", "Pop", "Hip Hop", "Folk", "Country", "Other"]
+const tags = ["None", "Rock", "Jazz", "Pop", "Hip Hop", "Folk", "Country", "Other"]
 
 const Musicians = () => {
     const [data, setData] = useState([]);
@@ -38,10 +38,16 @@ const Musicians = () => {
         window.scrollTo(0, 0);
     }, []);
     const selectTag = e => {
-        let copy = data;
+        let { value } = e.target;
 
-        copy = copy.filter(musician => musician.tags === e.target.value);
-        setMusicians(copy);
+        if(value === "None"){
+            setMusicians(data);
+        }
+        else{
+            let copy = data;
+            copy = copy.filter(musician => musician.tags === value);
+            setMusicians(copy);
+        }
     }
 
     return(
@@ -56,7 +62,12 @@ const Musicians = () => {
                             { tags.map(tag => {
                                 return(
                                     <div className="form-check" key={tag}>
-                                        <input className="form-check-input" type="radio" name="radiotype" onChange={e => selectTag(e)} value={tag} id={`radio${tag}`} />
+                                        <input
+                                            className="form-check-input"
+                                            type="radio" name="radiotype"
+                                            onChange={e => selectTag(e)}
+                                            value={tag} id={`radio${tag}`}
+                                            defaultChecked={tag === "None" ? true : false} />
                                         <label className="form-check-label" htmlFor={`radio${tag}`}>
                                             {tag}
                                         </label>
