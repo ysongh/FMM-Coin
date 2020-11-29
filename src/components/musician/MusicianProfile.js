@@ -89,7 +89,7 @@ const MusicianProfile = () => {
     return(
         <div className="container my-5">
             <div className="row">
-                <div className="col-sm-4">
+                <div className="col-12 col-md-4">
                     <div className="card mb-3">
                         <div className="card-body">
                             <img className="img-fluid" src={musician.imageUrl} alt="Person" />
@@ -102,21 +102,21 @@ const MusicianProfile = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="card mb-3">
+                    <div className="card">
+                        <div className="card-body">
+                            <h3 className="card-title">Tags</h3>
+                            <p className="card-text"><span className="badge badge-pill btn-secondary">{musician.tags}</span></p>
+                        </div>
+                    </div>
+                    <div className="card my-3">
                         <div className="card-body">
                             <h3 className="card-title">Wallet Address</h3>
                             <p className="card-text">{musician.walletAddress}</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-sm-8">
+                <div className="col-12 col-md-8">
                     <div className="card mb-3">
-                        <div className="card-body">
-                            <h3 className="card-title">Tags</h3>
-                            <p className="card-text"><span className="badge badge-pill btn-secondary">{musician.tags}</span></p>
-                        </div>
-                    </div>
-                    <div className="card">
                         <div className="card-body">
                             <div className="d-flex justify-content-between mb-3">
                                 <h3 className="card-title">Videos</h3>
@@ -124,7 +124,6 @@ const MusicianProfile = () => {
                                     Add Video
                                 </button>
                             </div>
-                            
 
                             <div className="row">
                                 <div className="col-12 col-md-6 mb-3">
