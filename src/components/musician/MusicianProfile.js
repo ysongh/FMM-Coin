@@ -16,6 +16,7 @@ const MusicianProfile = () => {
     const [amount, setAmount] = useState(0);
     const [videoUrl, setVideoUrl] = useState('');
     const [loading, setLoading] = useState(false);
+    const [transactions, setTransactions] = useState([]);
 
     const [musician, setMusician] = useState({});
 
@@ -34,15 +35,24 @@ const MusicianProfile = () => {
             setBalance(balanceOf);
         }
 
-        async function getMusician() {
+        async function getMusician(){
             try{
                 const { data } = await axios.get(firebaseURL + '/musicians/' + id + '.json');
 
                 setMusician(data);
                 console.log(data)
+                getTransactionsHistory(data.walletAddress);
             } catch(err){
                 console.error(err);
             }
+        }
+
+        async function getTransactionsHistory(musicianWalletAddress){
+            await loadBlockchainData();
+
+            const transactions = await fmmBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
+            console.log(transactions);
+            setTransactions(transactions);
         }
 
         load();
@@ -139,6 +149,21 @@ const MusicianProfile = () => {
                                     <img className="img-fluid" src={VideoImg} alt="Person" />
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="card mb-3">
+                        <div className="card-body">
+                            <h3 className="card-title">Donation History</h3>
+
+                            { transactions.map((transaction, key) => {
+                                return (
+                                    <div key={key} >
+                                        <p>{transaction.returnValues._from}</p>
+                                        <p>{transaction.returnValues._value}</p>
+                                    </div>
+                                )
+                            }) }
                         </div>
                     </div>
                 </div>
