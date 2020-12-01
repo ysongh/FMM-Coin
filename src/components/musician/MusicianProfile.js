@@ -60,7 +60,7 @@ const MusicianProfile = () => {
             try{
                 await loadBlockchainData();
 
-                const transactions = await fmmBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
+                const transactions = await fmmBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { to: musicianWalletAddress }});
                 console.log(transactions);
                 setTransactions(transactions);
             } catch(err){
@@ -173,8 +173,8 @@ const MusicianProfile = () => {
                             { transactions.map((transaction, key) => {
                                 return (
                                     <div key={key} >
-                                        <p>{transaction.returnValues._from}</p>
-                                        <p>{transaction.returnValues._value}</p>
+                                        <p>{transaction.returnValues.from}</p>
+                                        <p>{transaction.returnValues.value}FMM {transaction.returnValues.date}</p>
                                     </div>
                                 )
                             }) }

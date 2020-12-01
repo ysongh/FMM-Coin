@@ -11,9 +11,10 @@ contract FundMyMusicianToken {
   mapping(address => uint256) public balanceOf;
 
   event Transfer(
-    address indexed _from,
-    address indexed _to,
-    uint _value
+    address indexed from,
+    address indexed to,
+    uint value,
+    uint date
   );
 
   event Sell(address _buyer, uint256 _amount);
@@ -32,7 +33,7 @@ contract FundMyMusicianToken {
     balanceOf[msg.sender] -= _value;
     balanceOf[_to] += _value;
 
-    emit Transfer(msg.sender, _to, _value);
+    emit Transfer(msg.sender, _to, _value, now);
 
     return true;
   }
