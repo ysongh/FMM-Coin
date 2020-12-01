@@ -171,14 +171,28 @@ const MusicianProfile = () => {
                         <div className="card-body">
                             <h3 className="card-title">Donation History</h3>
 
-                            { transactions.map((transaction, key) => {
-                                return (
-                                    <div key={key} >
-                                        <p>{transaction.returnValues.from}</p>
-                                        <p>{transaction.returnValues.value}FMM {moment.unix(transaction.returnValues.date).format('M/D/Y')}</p>
-                                    </div>
-                                )
-                            }) }
+                            <div className="table-responsive">
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">From</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        { transactions.map((transaction, key) => {
+                                            return (
+                                                <tr key={key}>
+                                                    <td>{transaction.returnValues.from}</td>
+                                                    <td>{transaction.returnValues.value}</td>
+                                                    <td>{moment.unix(transaction.returnValues.date).format('M/D/Y')}</td>
+                                                </tr>
+                                            )
+                                        }) }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
