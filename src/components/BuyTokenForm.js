@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../blockchain';
+import Alert from './common/Alert';
 
 const BuyTokenForm = () => {
     const [walletAddress, setWalletAddress] = useState('');
@@ -9,22 +10,29 @@ const BuyTokenForm = () => {
     const [ethBalance, setEthBalance] = useState(0);
     const [eth, setEth] = useState(0.0003);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         async function load(){
             await loadWeb3();
         }
         async function getWalletAddress(){
-            await loadBlockchainData();
-            const web3 = window.web3;
-            const accounts = await web3.eth.getAccounts();
-            setWalletAddress(accounts[0]);
+            try{
+                await loadBlockchainData();
+                const web3 = window.web3;
+                const accounts = await web3.eth.getAccounts();
+                setWalletAddress(accounts[0]);
 
-            const ethBalance = await web3.eth.getBalance(accounts[0]);
-            setEthBalance(web3.utils.fromWei(ethBalance, 'ether'));
+                const ethBalance = await web3.eth.getBalance(accounts[0]);
+                setEthBalance(web3.utils.fromWei(ethBalance, 'ether'));
 
-            const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
-            setBalance(balanceOf);
+                const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
+                setBalance(balanceOf);
+            }
+            catch(err){
+                console.error(err);
+                setError("Non-Ethereum browser detected. You should consider trying MetaMask!")
+            }
         }
 
         load();
@@ -61,6 +69,7 @@ const BuyTokenForm = () => {
 
     return(
         <div className="container mb-5">
+            <Alert msg={error}/>
             <h1 className="mt-3 mb-4">Buy Token</h1>
 
             <div className="row" style={{ height: '18rem'}}>

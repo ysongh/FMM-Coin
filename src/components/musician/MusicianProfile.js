@@ -7,6 +7,7 @@ import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../../blockchain';
 import VideoImg from '../../images/video.png';
 import TransferTokenForm from '../TransferTokenForm';
 import AddMusicModal from './AddMusicModal';
+import Alert from '../common/Alert';
 
 const MusicianProfile = () => {
     const { id } =  useParams();
@@ -17,6 +18,7 @@ const MusicianProfile = () => {
     const [videoUrl, setVideoUrl] = useState('');
     const [loading, setLoading] = useState(false);
     const [transactions, setTransactions] = useState([]);
+    const [error, setError] = useState(false);
 
     const [musician, setMusician] = useState({});
 
@@ -26,13 +28,20 @@ const MusicianProfile = () => {
         }
 
         async function getWalletAddress(){
-            await loadBlockchainData();
-            const web3 = window.web3;
-            const accounts = await web3.eth.getAccounts();
-            setWalletAddress(accounts[0]);
+            try{
+                await loadBlockchainData();
+                const web3 = window.web3;
+                const accounts = await web3.eth.getAccounts();
+                setWalletAddress(accounts[0]);
 
-            const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
-            setBalance(balanceOf);
+                const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
+                setBalance(balanceOf);
+            }
+            catch(err){
+                console.error(err);
+                setError("Non-Ethereum browser detected. You should consider trying MetaMask!")
+            }
+            
         }
 
         async function getMusician(){
@@ -48,11 +57,15 @@ const MusicianProfile = () => {
         }
 
         async function getTransactionsHistory(musicianWalletAddress){
-            await loadBlockchainData();
+            try{
+                await loadBlockchainData();
 
-            const transactions = await fmmBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
-            console.log(transactions);
-            setTransactions(transactions);
+                const transactions = await fmmBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
+                console.log(transactions);
+                setTransactions(transactions);
+            } catch(err){
+                console.error(err);
+            }
         }
 
         load();
@@ -97,8 +110,9 @@ const MusicianProfile = () => {
     }
     
     return(
-        <div className="container my-5">
-            <div className="row">
+        <div className="container">
+            <Alert msg={error}/>
+            <div className="row my-5">
                 <div className="col-12 col-md-4">
                     <div className="card mb-3">
                         <div className="card-body">
