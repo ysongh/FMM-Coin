@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router";
 import axios from 'axios';
+import moment from 'moment';
 
 import { firebaseURL } from '../../firebaseUrl';
 import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../../blockchain';
@@ -174,7 +175,7 @@ const MusicianProfile = () => {
                                 return (
                                     <div key={key} >
                                         <p>{transaction.returnValues.from}</p>
-                                        <p>{transaction.returnValues.value}FMM {transaction.returnValues.date}</p>
+                                        <p>{transaction.returnValues.value}FMM {moment.unix(transaction.returnValues.date).format('M/D/Y')}</p>
                                     </div>
                                 )
                             }) }
