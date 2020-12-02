@@ -33,7 +33,10 @@ body {
 
 .hero-img{
   background-image: url(./images/hero.svg);
-  width: 100%;
+  background-attachment: fixed;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 90vh;
   padding: 7rem 1rem;
 }
