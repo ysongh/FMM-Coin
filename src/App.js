@@ -8,7 +8,6 @@ import Home from './components/Home';
 import Musicians from './components/musician/Musicians';
 import MusicianProfile from './components/musician/MusicianProfile';
 import CreateProfile from './components/musician/CreateProfile';
-import TransferTokenForm from './components/TransferTokenForm';
 import BuyTokenForm from './components/BuyTokenForm';
 
 const App = () => {
@@ -33,7 +32,6 @@ const App = () => {
       <Route exact path="/musicians/:id" component={MusicianProfile} />
       <Route exact path="/create-profile" component={CreateProfile} />
       <Route exact path="/buytoken" component={BuyTokenForm} />
-      <Route exact path="/transfertoken/:musicianaddress" component={TransferTokenForm} />
       <Footer />
     </Router>
   );

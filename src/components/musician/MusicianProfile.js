@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import { firebaseURL } from '../../firebaseUrl';
 import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../../blockchain';
-import TransferTokenForm from '../TransferTokenForm';
+import TransferTokenModal from './TransferTokenModal';
 import AddMusicModal from './AddMusicModal';
 import Alert from '../common/Alert';
 
@@ -121,7 +121,7 @@ const MusicianProfile = () => {
                             <p className="card-text text-center">
                                 {musician.likes} Likes <button className="btn btn-secondary" onClick={() => addLike(musician)} disabled={loading}>{loading ? 'Pending' : '1 FMM to Like'}</button>
                             </p>
-                            <button className="btn btn-primary btn-lg d-block m-auto" data-toggle="modal" data-target="#confirmModal">
+                            <button className="btn btn-primary btn-lg d-block m-auto" data-toggle="modal" data-target="#transferTokenModal">
                                 Give Token
                             </button>
                         </div>
@@ -202,7 +202,7 @@ const MusicianProfile = () => {
                     </div>
                 </div>
             </div>
-            <TransferTokenForm
+            <TransferTokenModal
                 musicianAddress={musician.walletAddress}
                 walletAddress={walletAddress}
                 balance={balance}

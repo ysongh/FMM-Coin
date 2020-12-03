@@ -1,9 +1,9 @@
 import React from 'react';
 
-const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, setAmount, transferToken, loading }) => {
+const TransferTokenModal = ({ musicianAddress, walletAddress, balance, amount, setAmount, transferToken, loading }) => {
     return(
         <div className="container my-5">
-            <div className="modal fade" id="confirmModal" tabIndex="-1" role="dialog">
+            <div className="modal fade" id="transferTokenModal" tabIndex="-1" role="dialog">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -48,4 +48,4 @@ const TransferTokenForm = ({ musicianAddress, walletAddress, balance, amount, se
     )
 }
 
-export default TransferTokenForm;
+export default TransferTokenModal;
