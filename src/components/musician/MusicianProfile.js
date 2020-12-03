@@ -5,7 +5,6 @@ import moment from 'moment';
 
 import { firebaseURL } from '../../firebaseUrl';
 import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../../blockchain';
-import VideoImg from '../../images/video.png';
 import TransferTokenForm from '../TransferTokenForm';
 import AddMusicModal from './AddMusicModal';
 import Alert from '../common/Alert';
@@ -152,16 +151,22 @@ const MusicianProfile = () => {
 
                             <div className="row">
                                 <div className="col-12 col-md-6 mb-3">
-                                    <img className="img-fluid" src={VideoImg} alt="Person" />
+                                    <iframe
+                                        className="video"
+                                        src='https://www.youtube.com/embed/RldMvYpKPbM'
+                                        frameBorder='0'
+                                        allow='autoplay; encrypted-media'
+                                        allowFullScreen
+                                        title='video' />
                                 </div>
                                 <div className="col-12 col-md-6 mb-3">
-                                    <img className="img-fluid" src={VideoImg} alt="Person" />
-                                </div>
-                                <div className="col-12 col-md-6 mb-3">
-                                    <img className="img-fluid" src={VideoImg} alt="Person" />
-                                </div>
-                                <div className="col-12 col-md-6 mb-3">
-                                    <img className="img-fluid" src={VideoImg} alt="Person" />
+                                    <iframe
+                                        className="video"
+                                        src='https://www.youtube.com/embed/RldMvYpKPbM'
+                                        frameBorder='0'
+                                        allow='autoplay; encrypted-media'
+                                        allowFullScreen
+                                        title='video' />
                                 </div>
                             </div>
                         </div>
