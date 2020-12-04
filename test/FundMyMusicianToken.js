@@ -40,9 +40,10 @@ contract(FundMyMusicianToken, ([deployer, account1, , account3]) => {
             const receipt = await fundMyMusicianToken.transfer(account1, 200, { from: deployer });
 
             const event = receipt.logs[0].args;
-            assert.equal(event._from, deployer, 'the account the tokens are transferred from is correct');
-            assert.equal(event._to, account1, 'the account the tokens are transferred to is correct');
-            assert.equal(event._value, 200, 'the transfer amount is correct');
+            assert.equal(event.from, deployer, 'the account the tokens are transferred from is correct');
+            assert.equal(event.to, account1, 'the account the tokens are transferred to is correct');
+            assert.equal(event.value, 200, 'the transfer amount is correct');
+            assert.notEqual(event.date, null, 'the date is not empty');
 
             const receiver = await fundMyMusicianToken.balanceOf(account1);
             assert.equal(receiver.toNumber(), 200);
