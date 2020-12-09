@@ -3,23 +3,28 @@ pragma solidity >=0.4.21 <0.7.0;
 import "./Token.sol";
 
 contract FundMyMusicianToken {
+  uint public rate = 100;
   Token public token;
+
+  event TokenBought(
+    address account,
+    address token,
+    uint amount
+  );
 
   constructor(Token _token) public {
     token = _token;
   }
   
-  // function buyToken(uint256 _numberOfTokens) public payable{
-  //   require(balanceOf[admin] >= _numberOfTokens);
-  //   require(admin != msg.sender);
+  function buyToken() public payable{
+    uint tokenAmount = msg.value * rate;
 
-  //   admin.transfer(msg.value);
+    require(token.balanceOf(address(this)) >= tokenAmount);
 
-  //   balanceOf[admin] -= _numberOfTokens;
-  //   balanceOf[msg.sender] += _numberOfTokens;
+    token.transfer(msg.sender, tokenAmount);
 
-  //   emit Sell(msg.sender, _numberOfTokens);
-  // }
+    emit TokenBought(msg.sender, address(token), tokenAmount);
+  }
 
   // function likesMusician() public returns (bool success){
   //   require(balanceOf[msg.sender] > 0);
