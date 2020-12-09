@@ -1,7 +1,12 @@
+const Token = artifacts.require("Token");
 const FundMyMusicianToken = artifacts.require("FundMyMusicianToken");
 
-module.exports = function(deployer){
-  const totalSupply = 1000000;
-  const tokenPrice = 300000000000000;     // 0.0003 Eth
-  deployer.deploy(FundMyMusicianToken, totalSupply, tokenPrice);
+module.exports = async function(deployer){
+  await deployer.deploy(Token);
+  const token = await Token.deployed();
+
+  await deployer.deploy(FundMyMusicianToken, token.address);
+  const fundMyMusicianToken = await FundMyMusicianToken.deployed();
+
+  await token.transfer(fundMyMusicianToken.address, '1000000000000000000000000');
 };
