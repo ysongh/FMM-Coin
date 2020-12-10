@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../blockchain';
+import { loadWeb3, loadBlockchainData, tokenBlockchain, fmmBlockchain } from '../blockchain';
 import Alert from './common/Alert';
 
 const BuyTokenForm = () => {
@@ -26,7 +26,7 @@ const BuyTokenForm = () => {
                 const ethBalance = await web3.eth.getBalance(accounts[0]);
                 setEthBalance(web3.utils.fromWei(ethBalance, 'ether'));
 
-                const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
+                const balanceOf = await tokenBlockchain.methods.balanceOf(accounts[0]).call();
                 setBalance(balanceOf);
             }
             catch(err){

@@ -1,7 +1,9 @@
 import Web3 from 'web3';
 
+import Token from '../abis/Token.json';
 import FundMyMusicianToken from '../abis/FundMyMusicianToken.json';
 
+export let tokenBlockchain;
 export let fmmBlockchain;
 
 export const loadWeb3 = async () => {
@@ -26,15 +28,27 @@ export const loadBlockchainData = async () => {
     const web3 = window.web3;
     
     const networkId = await web3.eth.net.getId();
-    const networkData = FundMyMusicianToken.networks[networkId];
+    const TokenData = Token.networks[networkId];
 
-    if(networkData){
+    if(TokenData){
+      const abi = Token.abi;
+      const address = Token.networks[networkId].address;
+
+      const blockchain = new web3.eth.Contract(abi, address);
+      tokenBlockchain = blockchain;
+    }else{
+      window.alert('Token Contract is not deployed to detected network.')
+    }
+
+    const FundMyMusicianTokenData = FundMyMusicianToken.networks[networkId];
+
+    if(FundMyMusicianTokenData){
       const abi = FundMyMusicianToken.abi;
       const address = FundMyMusicianToken.networks[networkId].address;
 
       const blockchain = new web3.eth.Contract(abi, address);
       fmmBlockchain = blockchain;
     }else{
-      window.alert('Contract is not deployed to detected network. Try using Kovan Test Network.')
+      window.alert('FundMyMusicianToken Contract is not deployed to detected network.')
     }
   }
