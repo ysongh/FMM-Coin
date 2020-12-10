@@ -8,7 +8,7 @@ const BuyTokenForm = () => {
     const [balance, setBalance] = useState(0)
     const [amount, setAmount] = useState(1);
     const [ethBalance, setEthBalance] = useState(0);
-    const [eth, setEth] = useState(0.0003);
+    const [eth, setEth] = useState(0.01);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
@@ -27,7 +27,7 @@ const BuyTokenForm = () => {
                 setEthBalance(web3.utils.fromWei(ethBalance, 'ether'));
 
                 const balanceOf = await tokenBlockchain.methods.balanceOf(accounts[0]).call();
-                setBalance(balanceOf);
+                setBalance(web3.utils.fromWei(balanceOf, 'ether'));
             }
             catch(err){
                 console.error(err);
@@ -44,7 +44,7 @@ const BuyTokenForm = () => {
     const buyToken = async() => {
         try{
             setLoading(true);
-            const receipt = await fmmBlockchain.methods.buyToken(amount).send({ from: walletAddress, value: window.web3.utils.toWei('0.0003', 'Ether') * amount});
+            const receipt = await fmmBlockchain.methods.buyToken().send({ from: walletAddress, value: window.web3.utils.toWei(eth.toString(), 'Ether')});
             
             if(receipt.status){
                 setBalance(+balance + +amount);
@@ -63,7 +63,7 @@ const BuyTokenForm = () => {
     const changeAmount = e => {
         if(e.target.value >= 0 && e.target.value < 100000){
             setAmount(e.target.value);
-            setEth((e.target.value * 0.0003).toFixed(4));
+            setEth(e.target.value / 100);
         }
     }
 
