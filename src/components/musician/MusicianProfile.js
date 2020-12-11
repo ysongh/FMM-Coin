@@ -4,7 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 import { firebaseURL } from '../../firebaseUrl';
-import { loadWeb3, loadBlockchainData, fmmBlockchain } from '../../blockchain';
+import { loadWeb3, loadBlockchainData, tokenBlockchain, fmmBlockchain } from '../../blockchain';
 import TransferTokenModal from './TransferTokenModal';
 import AddMusicModal from './AddMusicModal';
 import Alert from '../common/Alert';
@@ -34,8 +34,8 @@ const MusicianProfile = () => {
                 const accounts = await web3.eth.getAccounts();
                 setWalletAddress(accounts[0]);
 
-                const balanceOf = await fmmBlockchain.methods.balanceOf(accounts[0]).call();
-                setBalance(balanceOf);
+                const balanceOf = await tokenBlockchain.methods.balanceOf(accounts[0]).call();
+                setBalance(web3.utils.fromWei(balanceOf, 'ether'));
             }
             catch(err){
                 console.error(err);
@@ -97,7 +97,7 @@ const MusicianProfile = () => {
     const transferToken = async() => {
         try{
             setLoading(true);
-            await fmmBlockchain.methods.transfer(musician.walletAddress, amount).send({ from: walletAddress });
+            await tokenBlockchain.methods.transfer(musician.walletAddress, window.web3.utils.toWei(amount, 'ether')).send({ from: walletAddress });
             
             setBalance(+balance - +amount);
             setAmount(0);
