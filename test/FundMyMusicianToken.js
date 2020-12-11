@@ -7,6 +7,10 @@ require('chai')
 const Token = artifacts.require("Token");
 const FundMyMusicianToken = artifacts.require("FundMyMusicianToken");
 
+function tokensToWei(val) {
+    return web3.utils.toWei(val, 'ether');
+}
+
 contract('FundMyMusicianToken', ([deployer, account1, account2, account3]) => {
     let token;
     let fundMyMusicianToken;
@@ -15,7 +19,7 @@ contract('FundMyMusicianToken', ([deployer, account1, account2, account3]) => {
         token = await Token.new();
         fundMyMusicianToken = await FundMyMusicianToken.new(token.address);
 
-        await token.transfer(fundMyMusicianToken.address, '1000000000000000000000000');
+        await token.transfer(fundMyMusicianToken.address, tokensToWei('1000000'));
     });
 
     describe('Token deployment', async() => {
@@ -32,7 +36,7 @@ contract('FundMyMusicianToken', ([deployer, account1, account2, account3]) => {
         })
         it('set the total supply to 1,000,000', async() => {
             const totalSupply = await token.totalSupply();
-            assert.equal(totalSupply.toString(), 1000000000000000000000000);
+            assert.equal(totalSupply.toString(), tokensToWei('1000000'));
         });
     });
 
@@ -46,38 +50,32 @@ contract('FundMyMusicianToken', ([deployer, account1, account2, account3]) => {
         });
         it('contract has tokens', async () => {
             let balance = await token.balanceOf(fundMyMusicianToken.address);
-            assert.equal(balance.toString(), 1000000000000000000000000);
+            assert.equal(balance.toString(), tokensToWei('1000000'));
         })
     });
 
     describe('Buy tokens', async() => {
         let result;
         before(async() => {
-            result = await fundMyMusicianToken.buyToken({ from: account2, value: web3.utils.toWei('1', 'ether')});
+            result = await fundMyMusicianToken.buyToken({ from: account2, value: tokensToWei('1')});
         })
 
         it('received the correct amount of token', async() => {
             let userBalance = await token.balanceOf(account2);
-            assert.equal(userBalance.toString(), web3.utils.toWei('100', 'ether'));
+            assert.equal(userBalance.toString(),tokensToWei('100'));
 
             let fundMyMusicianTokenBalance = await token.balanceOf(fundMyMusicianToken.address);
-            assert.equal(fundMyMusicianTokenBalance.toString(), web3.utils.toWei('999900', 'ether'));
+            assert.equal(fundMyMusicianTokenBalance.toString(), tokensToWei('999900'));
 
             const event = result.logs[1].args;
             assert.equal(event.account, account2);
             assert.equal(event.token, token.address);
-            assert.equal(event.amount.toString(), web3.utils.toWei('100', 'ether'));
-
-            // // reject if there is not enough tokens to buy
-            // await fundMyMusicianToken.buyToken.call(1000000000000, { from: account1, value: web3.utils.toWei('0.0003', 'Ether') * 300}).should.be.rejected;
-
-            // // reject if the deployer buy the token
-            // await fundMyMusicianToken.buyToken.call(300, { from: deployer, value: web3.utils.toWei('0.0003', 'Ether') * 300}).should.be.rejected;
+            assert.equal(event.amount.toString(),tokensToWei('100'));
         });
 
         it('received the correct amount of ETH for fundMyMusicianToken', async() => {
             let fundMyMusicianTokenBalance = await web3.eth.getBalance(fundMyMusicianToken.address);
-            assert.equal(fundMyMusicianTokenBalance.toString(), web3.utils.toWei('1', 'Ether'));
+            assert.equal(fundMyMusicianTokenBalance.toString(), tokensToWei('1'));
         });
     });
 
