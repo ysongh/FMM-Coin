@@ -79,6 +79,36 @@ contract('FundMyMusicianToken', ([deployer, account1, account2, account3]) => {
         });
     });
 
+    describe('Sell tokens', async () => {
+        let result;
+    
+        before(async () => {
+          await token.approve(fundMyMusicianToken.address, tokensToWei('100'), { from: account2 });
+          result = await fundMyMusicianToken.sellToken(tokensToWei('100'), { from: account2 });
+        })
+
+        it('received the correct amount of token', async () => {
+            let userBalance = await token.balanceOf(account2);
+            assert.equal(userBalance.toString(), tokensToWei('0'));
+
+            let fundMyMusicianTokenBalance = await token.balanceOf(fundMyMusicianToken.address);
+            assert.equal(fundMyMusicianTokenBalance.toString(), tokensToWei('1000000'));
+
+            const event = result.logs[1].args;
+            assert.equal(event.account, account2);
+            assert.equal(event.token, token.address);
+            assert.equal(event.amount.toString(), tokensToWei('100').toString());
+
+            // reject if user sells more tokens than they have
+            await fundMyMusicianToken.sellToken(tokensToWei('500'), { from: account2 }).should.be.rejected;
+        })
+
+        it('received the correct amount of ETH for fundMyMusicianToken', async() => {
+            let fundMyMusicianTokenBalance = await web3.eth.getBalance(fundMyMusicianToken.address);
+            assert.equal(fundMyMusicianTokenBalance.toString(), 0);
+        });
+    })
+
     describe('like a musician', async() => {
         xit('sender pay 1 FMM token to like a musician music', async() => {
             const oldBalanace = await fundMyMusicianToken.balanceOf(account1);
