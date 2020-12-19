@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { loadWeb3, loadBlockchainData, tokenBlockchain, fmmBlockchain } from '../blockchain';
-import Alert from './common/Alert';
+import { loadWeb3, loadBlockchainData, tokenBlockchain, fmmBlockchain } from '../../blockchain';
+import Alert from '../common/Alert';
+import BuyToken from './BuyToken';
 
-const BuyTokenForm = () => {
+const Main = () => {
     const [walletAddress, setWalletAddress] = useState('');
-    const [balance, setBalance] = useState(0)
+    const [balance, setBalance] = useState(0);
     const [amount, setAmount] = useState(1);
-    const [ethBalance, setEthBalance] = useState(0);
     const [eth, setEth] = useState(0.01);
+    const [ethBalance, setEthBalance] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
@@ -83,29 +84,11 @@ const BuyTokenForm = () => {
                     </div>
                 </div>
                 <div className="col-12 col-md-6">
-                    <label htmlFor="amount">How many token you would to buy?</label>
-                    <div className="input-group mb-3">
-                        <input
-                            name="amount"
-                            type="number"
-                            className="form-control"
-                            onChange={(e) => changeAmount(e)}
-                            value={amount}/>
-                        <div className="input-group-append">
-                            <span className="input-group-text" id="basic-addon2">FMM</span>
-                        </div>
-                    </div>
-                    <p className="lead mt-3">Total Cost: {eth} ETH</p>
-                    <button
-                        className="btn btn-primary btn-lg"
-                        onClick={() => buyToken()}
-                        disabled={loading}>
-                            {loading ? 'Pending' : 'Purchase'}
-                    </button>
+                    <BuyToken loading={loading} buyToken={buyToken} changeAmount={changeAmount} amount={amount} eth={eth} />
                 </div>
             </div>
         </div>
     )
 }
 
-export default BuyTokenForm;
+export default Main;
