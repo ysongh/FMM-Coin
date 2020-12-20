@@ -18,6 +18,7 @@ const BuyToken = ({ loading, buyToken, changeAmount, buyAmount, buyEth }) => {
             <p className="lead mt-3">Total Cost: {buyEth} ETH</p>
             <button
                 className="btn btn-primary btn-lg"
+                onClick={() => buyToken()}
                 disabled={loading}>
                     {loading ? 'Pending' : 'Purchase'}
             </button>

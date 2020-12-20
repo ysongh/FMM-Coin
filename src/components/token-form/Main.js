@@ -67,6 +67,26 @@ const Main = () => {
         }
     }
 
+    const sellToken = async() => {
+        try{
+            setLoading(true);
+            await tokenBlockchain.methods.approve(fmmBlockchain._address, window.web3.utils.toWei(sellAmount.toString(), 'Ether')).send({ from: walletAddress });
+            const receipt = await fmmBlockchain.methods.sellToken(window.web3.utils.toWei(sellAmount.toString(), 'Ether')).send({ from: walletAddress });
+
+            if(receipt.status){
+                setBalance(+balance - +sellAmount);
+                setSellAmount(0);
+                setEthBalance(ethBalance + sellEth);
+                setSellEth(0);
+            }
+            setLoading(false);
+        }
+        catch(err){
+            console.error(err);
+            setLoading(false);
+        }
+    }
+
     const changeAmount = e => {
         if(currentForm === 'buy'){
             if(e.target.value >= 0 && e.target.value < 100000){
@@ -110,7 +130,7 @@ const Main = () => {
                     </div>
                     { currentForm === 'buy'
                         ? <BuyToken loading={loading} buyToken={buyToken} changeAmount={changeAmount} buyAmount={buyAmount} buyEth={buyEth} />
-                        : <SellToken loading={loading} changeAmount={changeAmount} sellAmount={sellAmount} sellEth={sellEth}/>
+                        : <SellToken loading={loading} sellToken={sellToken} changeAmount={changeAmount} sellAmount={sellAmount} sellEth={sellEth}/>
                     }
                     
                 </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SellToken = ({ loading, changeAmount, sellAmount, sellEth }) => {
+const SellToken = ({ loading, sellToken, changeAmount, sellAmount, sellEth }) => {
     return(
         <div>
             <label htmlFor="amount">How many FMM tokens do you want to sell?</label>
@@ -18,6 +18,7 @@ const SellToken = ({ loading, changeAmount, sellAmount, sellEth }) => {
             <p className="lead mt-3">Total Gain: {sellEth} ETH</p>
             <button
                 className="btn btn-primary btn-lg"
+                onClick={() => sellToken()}
                 disabled={loading}>
                     {loading ? 'Pending' : 'Sell'}
             </button>
