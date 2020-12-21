@@ -24,9 +24,9 @@ const Home = () => {
                     <h2 className="primary-color text-center my-5 display-4">Crypto Wallet Required</h2>
                 </section>
 
-                <section className="mb-5">
-                    <h2 className="mt-5">Give Token to the Musicians</h2>
-                    <div className="row">
+                <section className="howitworks mb-5">
+                    <h2 className="font-weight-bold mt-5">Give Token to the Musicians</h2>
+                    <div className="row mb-5">
                         <div className="col-12 col-md-6">
                             <img className="img-fluid" src={GiveCoinImg} alt="Give Coin" />
                         </div>
@@ -36,10 +36,10 @@ const Home = () => {
                             <p><span className="badge badge-pill btn-secondary">3</span> Send FMM token to your favorite musician</p>
                         </div>
                     </div>
-                    <h2 className="text-right mt-5">Earn Token as Musicians</h2>
+                    <h2 className="font-weight-bold text-right">Earn Token as Musicians</h2>
                     <div className="row">
                         <div className="col-12 col-md-6">
-                            <p className="mt-5"><span className="badge badge-pill btn-secondary">1</span> Create an account and profile</p>
+                            <p className="mt-4"><span className="badge badge-pill btn-secondary">1</span> Create an account and profile</p>
                             <p><span className="badge badge-pill btn-secondary">2</span> Add your wallet address</p>
                             <p><span className="badge badge-pill btn-secondary">3</span> Upload your video of playing music</p>
                             <p><span className="badge badge-pill btn-secondary">4</span> Sell your token for funds</p>
