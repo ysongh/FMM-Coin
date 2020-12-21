@@ -60,7 +60,7 @@ const MusicianProfile = () => {
             try{
                 await loadBlockchainData();
 
-                const transactions = await fmmBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { to: musicianWalletAddress }});
+                const transactions = await tokenBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
                 console.log(transactions);
                 setTransactions(transactions);
             } catch(err){
@@ -180,18 +180,18 @@ const MusicianProfile = () => {
                                 <table className="table">
                                     <thead>
                                         <tr>
+                                            <th scope="col">#</th>
                                             <th scope="col">From</th>
                                             <th scope="col">Amount</th>
-                                            <th scope="col">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         { transactions.map((transaction, key) => {
                                             return (
                                                 <tr key={key}>
-                                                    <td>{transaction.returnValues.from}</td>
-                                                    <td>{transaction.returnValues.value}</td>
-                                                    <td>{moment.unix(transaction.returnValues.date).format('M/D/Y')}</td>
+                                                    <td>{key + 1}</td>
+                                                    <td>{transaction.returnValues._from}</td>
+                                                    <td>{window.web3.utils.fromWei(transaction.returnValues._value, 'ether')}</td>
                                                 </tr>
                                             )
                                         }) }
