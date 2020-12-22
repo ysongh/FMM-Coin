@@ -45,13 +45,4 @@ contract FundMyMusicianToken {
 
     emit TokenSold(msg.sender, address(token), _amount);
   }
-
-  // function likesMusician() public returns (bool success){
-  //   require(balanceOf[msg.sender] > 0);
-
-  //   balanceOf[admin] += 1;
-  //   balanceOf[msg.sender] -= 1;
-
-  //   return true;
-  // }
 }

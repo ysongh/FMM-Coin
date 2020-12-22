@@ -78,14 +78,10 @@ const MusicianProfile = () => {
     const addLike = async musician => {
         try{
             setLoading(true);
-            const receipt = await fmmBlockchain.methods.likesMusician().send({ from: walletAddress });
 
-            if(receipt.status){
-                musician.likes += 1;
-            
-                const { data } = await axios.put(firebaseURL + '/musicians/' + id + '.json', musician);
-                setMusician(data);
-            }
+            musician.likes += 1;
+            const { data } = await axios.put(firebaseURL + '/musicians/' + id + '.json', musician);
+            setMusician(data);
 
             setLoading(false);
         } catch(err){
@@ -119,7 +115,7 @@ const MusicianProfile = () => {
                             <img className="img-fluid" src={musician.imageUrl} alt="Person" />
                             <h3 className="card-title text-center">{musician.name}</h3>
                             <p className="card-text text-center">
-                                {musician.likes} Likes <button className="btn btn-secondary" onClick={() => addLike(musician)} disabled={loading}>{loading ? 'Pending' : '1 FMM to Like'}</button>
+                                <button className="btn btn-secondary" onClick={() => addLike(musician)} disabled={loading}>{loading ? 'Pending' : musician.likes + ' Likes'}</button>
                             </p>
                             <button className="btn btn-primary btn-lg d-block m-auto" data-toggle="modal" data-target="#transferTokenModal">
                                 Give Token
