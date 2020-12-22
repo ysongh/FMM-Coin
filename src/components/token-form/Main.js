@@ -119,20 +119,23 @@ const Main = () => {
                     </div>
                 </div>
                 <div className="col-12 col-md-6">
-                    <div className="d-flex justify-content-around mb-3">
-                        <button className="btn btn-outline-success" onClick={() => setCurrentForm('buy')}>
-                            Buy
-                        </button>
-                        <span className="text-muted">&lt; &nbsp; &gt;</span>
-                        <button className="btn btn-outline-warning" onClick={() => setCurrentForm('sell')}>
-                            Sell
-                        </button>
-                    </div>
-                    { currentForm === 'buy'
-                        ? <BuyToken loading={loading} buyToken={buyToken} changeAmount={changeAmount} buyAmount={buyAmount} buyEth={buyEth} />
-                        : <SellToken loading={loading} sellToken={sellToken} changeAmount={changeAmount} sellAmount={sellAmount} sellEth={sellEth}/>
-                    }
-                    
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="d-flex justify-content-around mb-3">
+                                <button className="btn btn-outline-success" onClick={() => setCurrentForm('buy')}>
+                                    Buy
+                                </button>
+                                <span className="text-muted">&lt; &nbsp; &gt;</span>
+                                <button className="btn btn-outline-warning" onClick={() => setCurrentForm('sell')}>
+                                    Sell
+                                </button>
+                            </div>
+                            { currentForm === 'buy'
+                                ? <BuyToken loading={loading} buyToken={buyToken} changeAmount={changeAmount} buyAmount={buyAmount} buyEth={buyEth} />
+                                : <SellToken loading={loading} sellToken={sellToken} changeAmount={changeAmount} sellAmount={sellAmount} sellEth={sellEth}/>
+                            }
+                        </div>
+                    </div>            
                 </div>
             </div>
         </div>
