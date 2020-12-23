@@ -4,7 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 import { firebaseURL } from '../../firebaseUrl';
-import { loadWeb3, loadBlockchainData, tokenBlockchain, fmmBlockchain } from '../../blockchain';
+import { loadWeb3, loadBlockchainData, tokenBlockchain } from '../../blockchain';
 import TransferTokenModal from './TransferTokenModal';
 import AddMusicModal from './AddMusicModal';
 import Alert from '../common/Alert';
@@ -179,6 +179,7 @@ const MusicianProfile = () => {
                                             <th scope="col">#</th>
                                             <th scope="col">From</th>
                                             <th scope="col">Amount</th>
+                                            <th scope="col">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -188,6 +189,7 @@ const MusicianProfile = () => {
                                                     <td>{key + 1}</td>
                                                     <td>{transaction.returnValues._from}</td>
                                                     <td>{window.web3.utils.fromWei(transaction.returnValues._value, 'ether')}</td>
+                                                    <td>{moment.unix(transaction.returnValues.date).format('M/D/Y')}</td>
                                                 </tr>
                                             )
                                         }) }

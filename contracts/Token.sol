@@ -9,7 +9,8 @@ contract Token {
   event Transfer(
     address indexed _from,
     address indexed _to,
-    uint256 _value
+    uint256 _value,
+    uint date
   );
 
   event Approval(
@@ -31,7 +32,7 @@ contract Token {
     balanceOf[msg.sender] -= _value;
     balanceOf[_to] += _value;
 
-    emit Transfer(msg.sender, _to, _value);
+    emit Transfer(msg.sender, _to, _value, now);
 
     return true;
   }
@@ -51,7 +52,7 @@ contract Token {
     balanceOf[_to] += _value;
     allowance[_from][msg.sender] -= _value;
 
-    emit Transfer(_from, _to, _value);
+    emit Transfer(_from, _to, _value, now);
 
     return true;
   }
