@@ -25,6 +25,7 @@ const CreateProfile = () => {
             await axios.post(firebaseURL + '/musicians.json', musicianInfo);
 
             history.push("/musicians");
+            console.log(musicianInfo)
         } catch(err){
             console.error(err);
         }
@@ -56,19 +57,21 @@ const CreateProfile = () => {
                                     name="Wallet Address"
                                     placeholder="ex - 0x334381D3032e6BBd7EE8A76vbb37j1cC1bC210e1"
                                     value={walletAddress}
-                                    onChange={(e) => setWalletAddress(e.target.value)} 
+                                    onChange={(e) => setWalletAddress(e.target.value)}
                                 />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="text">Tags</label>
-                                <input
-                                    className="form-control"
-                                    type="text"
-                                    name="Tags"
-                                    placeholder="ex - Jazz"
-                                    value={tags}
-                                    onChange={(e) => setTags(e.target.value)} 
-                                />
+                                <select className="custom-select" onChange={(e) => setTags(e.target.value)}>
+                                    <option>None</option>
+                                    <option value="Rock">Rock</option>
+                                    <option value="Jazz">Jazz</option>
+                                    <option value="Pop">Pop</option>
+                                    <option value="Hip Hop">Hip Hop</option>
+                                    <option value="Folk">Folk</option>
+                                    <option value="Country">Country</option>
+                                    <option value="Other">Other</option>
+                                </select>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="text">Image URL</label>
