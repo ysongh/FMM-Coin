@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 
 import Logo from '../../images/logo.svg';
 import { loadWeb3, loadBlockchainData } from '../../blockchain';
+import { GlobalContext } from '../../context/GlobalState';
 
 const Navbar = () => {
+    const { walletAddress, setWalletAddress } = useContext(GlobalContext);
+
     const connectBlockchain = async () => {
         await loadWeb3();
         await loadBlockchainData();
         const accounts = await window.web3.eth.getAccounts();
-        console.log(accounts[0]);
+        setWalletAddress(accounts[0]);
     }
 
     return(
@@ -39,7 +42,9 @@ const Navbar = () => {
                             <Link className="nav-link" to="/create-profile">Get Started</Link>
                         </li>
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                            <button className="nav-link btn btn-primary" onClick={() => connectBlockchain()}>Open Wallet</button>
+                            <button className="nav-link btn btn-primary" onClick={() => connectBlockchain()}>
+                                {walletAddress ? walletAddress.substring(0,7) + '...' + walletAddress.substring(35,42) : "Open Wallet"}
+                            </button>
                         </li>
                     </ul>
                 </div>
