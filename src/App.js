@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route  } from 'react-router-dom';
 
-import { loadWeb3, loadBlockchainData } from './blockchain';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './components/Home';
@@ -11,19 +10,6 @@ import CreateProfile from './components/musician/CreateProfile';
 import TokenForm from './components/token-form/Main';
 
 const App = () => {
-  useEffect(() => {
-    async function load(){
-      await loadWeb3();
-    }
-
-    async function getBlockchain(){
-      await loadBlockchainData();
-    }
-    
-    load();
-    getBlockchain();
-  }, []);
-
   return (
     <Router className="App">
       <Navbar />

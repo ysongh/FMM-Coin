@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Logo from '../../images/logo.svg';
+import { loadWeb3, loadBlockchainData } from '../../blockchain';
 
 const Navbar = () => {
+    const connectBlockchain = async () => {
+        await loadWeb3();
+        await loadBlockchainData();
+        const accounts = await window.web3.eth.getAccounts();
+        console.log(accounts[0]);
+    }
+
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
@@ -28,7 +36,10 @@ const Navbar = () => {
                             <Link className="nav-link" to="/">Login</Link>
                         </li>
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                            <Link className="nav-link btn btn-primary" to="/create-profile">Get Started</Link>
+                            <Link className="nav-link" to="/create-profile">Get Started</Link>
+                        </li>
+                        <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+                            <button className="nav-link btn btn-primary" onClick={() => connectBlockchain()}>Open Wallet</button>
                         </li>
                     </ul>
                 </div>
