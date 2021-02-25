@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
-import { loadWeb3, loadBlockchainData, tokenBlockchain, fmmBlockchain } from '../../blockchain';
+import { tokenBlockchain, fmmBlockchain } from '../../blockchain';
+import { GlobalContext } from '../../context/GlobalState';
 import Alert from '../common/Alert';
 import BuyToken from './BuyToken';
 import SellToken from './SellToken';
 
 const Main = () => {
-    const [walletAddress, setWalletAddress] = useState('');
+    const { walletAddress } = useContext(GlobalContext);
+
     const [balance, setBalance] = useState(0);
     const [ethBalance, setEthBalance] = useState(0);
 
@@ -20,20 +22,15 @@ const Main = () => {
     const [currentForm, setCurrentForm] = useState('buy');
 
     useEffect(() => {
-        async function load(){
-            await loadWeb3();
-        }
-        async function getWalletAddress(){
+        async function getWalletDetail(){
             try{
-                await loadBlockchainData();
+                setError('');
                 const web3 = window.web3;
-                const accounts = await web3.eth.getAccounts();
-                setWalletAddress(accounts[0]);
 
-                const ethBalance = await web3.eth.getBalance(accounts[0]);
+                const ethBalance = await web3.eth.getBalance(walletAddress);
                 setEthBalance(web3.utils.fromWei(ethBalance, 'ether'));
 
-                const balanceOf = await tokenBlockchain.methods.balanceOf(accounts[0]).call();
+                const balanceOf = await tokenBlockchain.methods.balanceOf(walletAddress).call();
                 setBalance(web3.utils.fromWei(balanceOf, 'ether'));
             }
             catch(err){
@@ -42,11 +39,10 @@ const Main = () => {
             }
         }
 
-        load();
-        getWalletAddress();
+        getWalletDetail();
         
         window.scrollTo(0, 0);
-      }, []);
+      }, [walletAddress]);
 
     const buyToken = async() => {
         try{
