@@ -19,7 +19,7 @@ const BuyToken = ({ loading, buyToken, changeAmount, buyAmount, buyEth }) => {
             <button
                 className="btn btn-primary btn-lg"
                 onClick={() => buyToken()}
-                disabled={loading}>
+                disabled={loading || buyAmount === 0 || buyAmount === ''}>
                     {loading ? 'Pending' : 'Purchase'}
             </button>
         </div>

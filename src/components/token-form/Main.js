@@ -10,9 +10,9 @@ const Main = () => {
     const [balance, setBalance] = useState(0);
     const [ethBalance, setEthBalance] = useState(0);
 
-    const [buyAmount, setBuyAmount] = useState(0);
+    const [buyAmount, setBuyAmount] = useState('');
     const [buyEth, setBuyEth] = useState(0);
-    const [sellAmount, setSellAmount] = useState(0);
+    const [sellAmount, setSellAmount] = useState('');
     const [sellEth, setSellEth] = useState(0);
     
     const [loading, setLoading] = useState(false);

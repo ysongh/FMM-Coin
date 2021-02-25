@@ -19,7 +19,7 @@ const SellToken = ({ loading, sellToken, changeAmount, sellAmount, sellEth }) =>
             <button
                 className="btn btn-primary btn-lg"
                 onClick={() => sellToken()}
-                disabled={loading}>
+                disabled={loading || sellAmount === 0 || sellAmount === ''}>
                     {loading ? 'Pending' : 'Sell'}
             </button>
         </div>
