@@ -100,40 +100,44 @@ const Main = () => {
     }
 
     return(
-        <div className="container mb-5">
+        <div className="container mb-5" style={{ minHeight: '50vh'}}>
             <Alert msg={error}/>
             <h1 className="mt-3 mb-4">FMM Token</h1>
 
-            <div className="row">
-                <div className="col-12 col-md-6">
-                    <div className="card mb-4">
-                        <div className="card-body">
-                            <p className="card-text"><strong>Your wallet adresss:</strong> {walletAddress}</p>
-                            <p className="card-text"><strong>Your token balance:</strong> {balance} FMM</p>
-                            <p className="card-text"><strong>Your ETH balance:</strong> {ethBalance} ETH</p>
+            {walletAddress ? (
+                <div className="row">
+                    <div className="col-12 col-md-6">
+                        <div className="card mb-4">
+                            <div className="card-body">
+                                <p className="card-text"><strong>Your wallet adresss:</strong> {walletAddress}</p>
+                                <p className="card-text"><strong>Your token balance:</strong> {balance} FMM</p>
+                                <p className="card-text"><strong>Your ETH balance:</strong> {ethBalance} ETH</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="col-12 col-md-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="d-flex justify-content-around mb-3">
-                                <button className="btn btn-outline-success" onClick={() => setCurrentForm('buy')}>
-                                    Buy
-                                </button>
-                                <span className="text-muted">&lt; &nbsp; &gt;</span>
-                                <button className="btn btn-outline-warning" onClick={() => setCurrentForm('sell')}>
-                                    Sell
-                                </button>
+                    <div className="col-12 col-md-6">
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="d-flex justify-content-around mb-3">
+                                    <button className="btn btn-outline-success" onClick={() => setCurrentForm('buy')}>
+                                        Buy
+                                    </button>
+                                    <span className="text-muted">&lt; &nbsp; &gt;</span>
+                                    <button className="btn btn-outline-warning" onClick={() => setCurrentForm('sell')}>
+                                        Sell
+                                    </button>
+                                </div>
+                                { currentForm === 'buy'
+                                    ? <BuyToken loading={loading} buyToken={buyToken} changeAmount={changeAmount} buyAmount={buyAmount} buyEth={buyEth} />
+                                    : <SellToken loading={loading} sellToken={sellToken} changeAmount={changeAmount} sellAmount={sellAmount} sellEth={sellEth}/>
+                                }
                             </div>
-                            { currentForm === 'buy'
-                                ? <BuyToken loading={loading} buyToken={buyToken} changeAmount={changeAmount} buyAmount={buyAmount} buyEth={buyEth} />
-                                : <SellToken loading={loading} sellToken={sellToken} changeAmount={changeAmount} sellAmount={sellAmount} sellEth={sellEth}/>
-                            }
-                        </div>
-                    </div>            
+                        </div>            
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <p className="text-danger">Connect to your wallet to buy or sell FMM</p>
+            )}
         </div>
     )
 }
