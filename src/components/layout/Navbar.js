@@ -36,10 +36,7 @@ const Navbar = () => {
                             <Link className="nav-link" to="/musicians">Musicians</Link>
                         </li>
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                            <Link className="nav-link" to="/">Login</Link>
-                        </li>
-                        <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                            <Link className="nav-link" to="/create-profile">Get Started</Link>
+                            <Link className="nav-link" to="/create-profile">Create Profile</Link>
                         </li>
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                             <button className="nav-link btn btn-primary" onClick={() => connectBlockchain()}>
