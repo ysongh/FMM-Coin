@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
+import { GlobalContext } from '../../context/GlobalState';
 import { firebaseURL } from '../../firebaseUrl';
 
 const CreateProfile = () => {
+    const { walletAddress } = useContext(GlobalContext);
     const history = useHistory();
 
     const [name, setName] = useState('');
-    const [walletAddress, setWalletAddress] = useState('');
+    const [address, setAddress] = useState('');
     const [tags, setTags] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+
+    useEffect(() => {
+        if(walletAddress) setAddress(walletAddress);
+    }, [walletAddress]);
 
     const createProfile = async () => {
         try{
             const musicianInfo = {
                 name,
-                walletAddress,
+                address,
                 tags,
                 imageUrl,
                 likes: 0
@@ -25,7 +31,6 @@ const CreateProfile = () => {
             await axios.post(firebaseURL + '/musicians.json', musicianInfo);
 
             history.push("/musicians");
-            console.log(musicianInfo)
         } catch(err){
             console.error(err);
         }
@@ -56,8 +61,8 @@ const CreateProfile = () => {
                                     type="text"
                                     name="Wallet Address"
                                     placeholder="ex - 0x334381D3032e6BBd7EE8A76vbb37j1cC1bC210e1"
-                                    value={walletAddress}
-                                    onChange={(e) => setWalletAddress(e.target.value)}
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
                                 />
                             </div>
                             <div className="form-group">
