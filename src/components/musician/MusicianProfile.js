@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from "react-router";
 import axios from 'axios';
 import moment from 'moment';
 
 import { firebaseURL } from '../../firebaseUrl';
-import { loadWeb3, loadBlockchainData, tokenBlockchain } from '../../blockchain';
+import { tokenBlockchain } from '../../blockchain';
+import { GlobalContext } from '../../context/GlobalState';
 import TransferTokenModal from './TransferTokenModal';
 import AddMusicModal from './AddMusicModal';
 import Alert from '../common/Alert';
 
 const MusicianProfile = () => {
     const { id } =  useParams();
+    const { walletAddress } = useContext(GlobalContext);
 
-    const [walletAddress, setWalletAddress] = useState('');
     const [balance, setBalance] = useState(0)
     const [amount, setAmount] = useState(0);
     const [videoUrl, setVideoUrl] = useState('');
@@ -23,25 +24,17 @@ const MusicianProfile = () => {
     const [musician, setMusician] = useState({});
 
     useEffect(() => {
-        async function load(){
-            await loadWeb3();
-        }
-
-        async function getWalletAddress(){
+        async function getWalletDetail(){
             try{
-                await loadBlockchainData();
-                const web3 = window.web3;
-                const accounts = await web3.eth.getAccounts();
-                setWalletAddress(accounts[0]);
+                setError('');
 
-                const balanceOf = await tokenBlockchain.methods.balanceOf(accounts[0]).call();
-                setBalance(web3.utils.fromWei(balanceOf, 'ether'));
+                const balanceOf = await tokenBlockchain.methods.balanceOf(walletAddress).call();
+                setBalance(window.web3.utils.fromWei(balanceOf, 'ether'));
             }
             catch(err){
                 console.error(err);
                 setError("Non-Ethereum browser detected. You should consider trying MetaMask!")
             }
-            
         }
 
         async function getMusician(){
@@ -58,8 +51,6 @@ const MusicianProfile = () => {
 
         async function getTransactionsHistory(musicianWalletAddress){
             try{
-                await loadBlockchainData();
-
                 const transactions = await tokenBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
                 console.log(transactions);
                 setTransactions(transactions);
@@ -68,12 +59,11 @@ const MusicianProfile = () => {
             }
         }
 
-        load();
-        getWalletAddress();
+        getWalletDetail();
         getMusician();
 
         window.scrollTo(0, 0);
-    }, [id]);
+    }, [id, walletAddress]);
 
     const addLike = async musician => {
         try{
@@ -117,9 +107,14 @@ const MusicianProfile = () => {
                             <p className="card-text text-center">
                                 <button className="btn btn-secondary" onClick={() => addLike(musician)} disabled={loading}>{loading ? 'Pending' : musician.likes + ' Likes'}</button>
                             </p>
-                            <button className="btn btn-primary btn-lg d-block m-auto" data-toggle="modal" data-target="#transferTokenModal">
-                                Give Token
-                            </button>
+                            {walletAddress ? (
+                                <button className="btn btn-primary btn-lg d-block m-auto" data-toggle="modal" data-target="#transferTokenModal">
+                                    Give Token
+                                </button>
+                            ) : (
+                                <p className="text-danger text-center">Connect to your wallet to send FFM</p>
+                            )}
+                            
                         </div>
                     </div>
                     <div className="card">
