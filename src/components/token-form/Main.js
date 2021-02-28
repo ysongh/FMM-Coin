@@ -109,9 +109,9 @@ const Main = () => {
                     <div className="col-12 col-md-6">
                         <div className="card mb-4">
                             <div className="card-body">
-                                <p className="card-text"><strong>Your wallet adresss:</strong> {walletAddress}</p>
-                                <p className="card-text"><strong>Your token balance:</strong> {balance} FMM</p>
-                                <p className="card-text"><strong>Your ETH balance:</strong> {ethBalance} ETH</p>
+                                <p className="card-text"><strong>Wallet Adresss:</strong> {walletAddress.substring(0,10) + '...' + walletAddress.substring(32,42)}</p>
+                                <p className="card-text"><strong>Token Balance:</strong> {balance} FMM</p>
+                                <p className="card-text"><strong>ETH Balance:</strong> {ethBalance} ETH</p>
                             </div>
                         </div>
                     </div>
@@ -119,11 +119,11 @@ const Main = () => {
                         <div className="card">
                             <div className="card-body">
                                 <div className="d-flex justify-content-around mb-3">
-                                    <button className="btn btn-outline-success" onClick={() => setCurrentForm('buy')}>
+                                    <button className="btn btn-outline-success btn-lg" onClick={() => setCurrentForm('buy')}>
                                         Buy
                                     </button>
-                                    <span className="text-muted">&lt; &nbsp; &gt;</span>
-                                    <button className="btn btn-outline-warning" onClick={() => setCurrentForm('sell')}>
+                                    <span className="text-muted mt-2">&lt; &nbsp; &gt;</span>
+                                    <button className="btn btn-outline-warning btn-lg" onClick={() => setCurrentForm('sell')}>
                                         Sell
                                     </button>
                                 </div>
