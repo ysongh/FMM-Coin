@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 import { GlobalContext } from '../../context/GlobalState';
-import { firebaseURL } from '../../firebaseUrl';
+import { db } from '../../firebase';
 
 const CreateProfile = () => {
     const { walletAddress } = useContext(GlobalContext);
@@ -20,15 +19,13 @@ const CreateProfile = () => {
 
     const createProfile = async () => {
         try{
-            const musicianInfo = {
+            await db.collection("musician").add({
                 name,
                 address,
                 tags,
                 imageUrl,
                 likes: 0
-            }
-            
-            await axios.post(firebaseURL + '/musicians.json', musicianInfo);
+            });
 
             history.push("/musicians");
         } catch(err){
