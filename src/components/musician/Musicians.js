@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
-import { firebaseURL } from '../../firebaseUrl';
+import { db } from '../../firebase';
 import Star from '../../images/star.svg';
 
 const tags = ["None", "Rock", "Jazz", "Pop", "Hip Hop", "Folk", "Country", "Other"]
@@ -14,20 +13,19 @@ const Musicians = () => {
     useEffect(() => {
         async function getMusicians() {
             try{
-                const { data } = await axios.get(firebaseURL + '/musicians.json');
-                const musiciansList = [];
-    
-                for (let key in data){
-                    musiciansList.unshift({
-                        ...data[key],
-                        id: key
+                db
+                    .collection('musician')
+                    .orderBy('likes', 'desc')
+                    .onSnapshot(snapshot => {
+                        setData(snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            data: doc.data()
+                        })));
+                        setMusicians(snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            data: doc.data()
+                        })));
                     });
-                }
-
-                musiciansList.sort((a, b) => b.likes - a.likes);
-
-                setData(musiciansList);
-                setMusicians(musiciansList);
             } catch(err){
                 console.error(err);
             }
@@ -37,6 +35,7 @@ const Musicians = () => {
         
         window.scrollTo(0, 0);
     }, []);
+
     const selectTag = e => {
         let { value } = e.target;
 
@@ -45,7 +44,7 @@ const Musicians = () => {
         }
         else{
             let copy = data;
-            copy = copy.filter(musician => musician.tags === value);
+            copy = copy.filter(musician => musician.data.tags === value);
             setMusicians(copy);
         }
     }
@@ -85,17 +84,17 @@ const Musicians = () => {
                                     <div className="card-body">
                                         <div className="row">
                                             <div className="col-sm-4">
-                                                <img className="img-fluid" src={musician.imageUrl} alt="Person" />
+                                                <img className="img-fluid" src={musician.data.imageUrl} alt="Person" />
                                             </div>
                                             <div className="col-sm-6">
-                                                <h5 className="card-title h2">{musician.name}</h5>
+                                                <h5 className="card-title h2">{musician.data.name}</h5>
                                                 <p className="card-text h5 mb-4">
-                                                    <strong>Tags:</strong> <span className="badge badge-pill btn-secondary">{musician.tags}</span>
+                                                    <strong>Tags:</strong> <span className="badge badge-pill btn-secondary">{musician.data.tags}</span>
                                                 </p>
                                                 <Link to={`/musicians/${musician.id}`} className="btn btn-primary btn-lg mt-5">See Music</Link>
                                             </div>
                                             <div className="col-sm-2">
-                                                <p className="card-text para">{musician.likes} <img className="icon" src={Star} alt="Star" /></p>
+                                                <p className="card-text para">{musician.data.likes} <img className="icon" src={Star} alt="Star" /></p>
                                             </div>
                                         </div>
                                     </div>
