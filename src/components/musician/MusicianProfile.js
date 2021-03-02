@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useLocation } from "react-router";
 import moment from 'moment';
 
+import { db } from '../../firebase';
 import { tokenBlockchain } from '../../blockchain';
 import { GlobalContext } from '../../context/GlobalState';
 import TransferTokenModal from './TransferTokenModal';
@@ -49,9 +50,14 @@ const MusicianProfile = () => {
         window.scrollTo(0, 0);
     }, [id, walletAddress]);
 
-    const addLike = async musician => {
+    const addLike = async () => {
         try{
             setLoading(true);
+
+            await db
+                .collection('musician')
+                .doc(id)
+                .update({ likes: state.musician?.data.likes + 1 })
 
             setLoading(false);
         } catch(err){
