@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from "react-router";
-import axios from 'axios';
+import { useParams, useLocation } from "react-router";
 import moment from 'moment';
 
-import { firebaseURL } from '../../firebaseUrl';
 import { tokenBlockchain } from '../../blockchain';
 import { GlobalContext } from '../../context/GlobalState';
 import TransferTokenModal from './TransferTokenModal';
@@ -13,6 +11,7 @@ import Alert from '../common/Alert';
 const MusicianProfile = () => {
     const { id } =  useParams();
     const { walletAddress } = useContext(GlobalContext);
+    const { state = {} } = useLocation();
 
     const [balance, setBalance] = useState(0)
     const [amount, setAmount] = useState(0);
@@ -20,8 +19,6 @@ const MusicianProfile = () => {
     const [loading, setLoading] = useState(false);
     const [transactions, setTransactions] = useState([]);
     const [error, setError] = useState(false);
-
-    const [musician, setMusician] = useState({});
 
     useEffect(() => {
         async function getWalletDetail(){
@@ -37,18 +34,6 @@ const MusicianProfile = () => {
             }
         }
 
-        async function getMusician(){
-            try{
-                const { data } = await axios.get(firebaseURL + '/musicians/' + id + '.json');
-
-                setMusician(data);
-                console.log(data)
-                getTransactionsHistory(data.walletAddress);
-            } catch(err){
-                console.error(err);
-            }
-        }
-
         async function getTransactionsHistory(musicianWalletAddress){
             try{
                 const transactions = await tokenBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
@@ -60,18 +45,13 @@ const MusicianProfile = () => {
         }
 
         getWalletDetail();
-        getMusician();
-
+        getTransactionsHistory();
         window.scrollTo(0, 0);
     }, [id, walletAddress]);
 
     const addLike = async musician => {
         try{
             setLoading(true);
-
-            musician.likes += 1;
-            const { data } = await axios.put(firebaseURL + '/musicians/' + id + '.json', musician);
-            setMusician(data);
 
             setLoading(false);
         } catch(err){
@@ -83,7 +63,7 @@ const MusicianProfile = () => {
     const transferToken = async() => {
         try{
             setLoading(true);
-            await tokenBlockchain.methods.transfer(musician.walletAddress, window.web3.utils.toWei(amount, 'ether')).send({ from: walletAddress });
+            await tokenBlockchain.methods.transfer(state.musician?.data.address, window.web3.utils.toWei(amount, 'ether')).send({ from: walletAddress });
             
             setBalance(+balance - +amount);
             setAmount(0);
@@ -94,7 +74,7 @@ const MusicianProfile = () => {
             setLoading(false);
         }
     }
-    
+    console.log(state);
     return(
         <div className="container">
             <Alert msg={error}/>
@@ -102,10 +82,10 @@ const MusicianProfile = () => {
                 <div className="col-12 col-md-4">
                     <div className="card mb-3">
                         <div className="card-body">
-                            <img className="img-fluid" src={musician.imageUrl} alt="Person" />
-                            <h3 className="card-title text-center">{musician.name}</h3>
+                            <img className="img-fluid" src={state.musician?.data.imageUrl} alt="Person" />
+                            <h3 className="card-title text-center">{state.musician?.data.name}</h3>
                             <p className="card-text text-center">
-                                <button className="btn btn-secondary" onClick={() => addLike(musician)} disabled={loading}>{loading ? 'Pending' : musician.likes + ' Likes'}</button>
+                                <button className="btn btn-secondary" onClick={() => addLike()} disabled={loading}>{loading ? 'Pending' : state.musician?.data.likes + ' Likes'}</button>
                             </p>
                             {walletAddress ? (
                                 <button className="btn btn-primary btn-lg d-block m-auto" data-toggle="modal" data-target="#transferTokenModal">
@@ -120,13 +100,13 @@ const MusicianProfile = () => {
                     <div className="card">
                         <div className="card-body">
                             <h3 className="card-title">Tags</h3>
-                            <p className="card-text"><span className="badge badge-pill btn-secondary">{musician.tags}</span></p>
+                            <p className="card-text"><span className="badge badge-pill btn-secondary">{state.musician?.data.tags}</span></p>
                         </div>
                     </div>
                     <div className="card my-3">
                         <div className="card-body">
                             <h3 className="card-title">Wallet Address</h3>
-                            <p className="card-text">{musician.walletAddress}</p>
+                            <p className="card-text">{state.musician?.data.address}</p>
                         </div>
                     </div>
                 </div>
@@ -196,7 +176,7 @@ const MusicianProfile = () => {
                 </div>
             </div>
             <TransferTokenModal
-                musicianAddress={musician.walletAddress}
+                musicianAddress={state.musician?.data.address}
                 walletAddress={walletAddress}
                 balance={balance}
                 amount={amount}

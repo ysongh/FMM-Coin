@@ -91,7 +91,15 @@ const Musicians = () => {
                                                 <p className="card-text h5 mb-4">
                                                     <strong>Tags:</strong> <span className="badge badge-pill btn-secondary">{musician.data.tags}</span>
                                                 </p>
-                                                <Link to={`/musicians/${musician.id}`} className="btn btn-primary btn-lg mt-5">See Music</Link>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/musicians/${musician.id}`,
+                                                        state: { musician }
+                                                    }}
+                                                    className="btn btn-primary btn-lg mt-5"
+                                                >
+                                                    See Music
+                                                </Link>
                                             </div>
                                             <div className="col-sm-2">
                                                 <p className="card-text para">{musician.data.likes} <img className="icon" src={Star} alt="Star" /></p>
