@@ -11,7 +11,8 @@ const CreateProfile = () => {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [tags, setTags] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
+    const [image, setImage] = useState('');
+    const [filename, setFilename] = useState('');
 
     useEffect(() => {
         if(walletAddress) setAddress(walletAddress);
@@ -23,7 +24,7 @@ const CreateProfile = () => {
                 name,
                 address,
                 tags,
-                imageUrl,
+                imageUrl: filename,
                 likes: 0
             });
 
@@ -31,6 +32,13 @@ const CreateProfile = () => {
         } catch(err){
             console.error(err);
         }
+    }
+
+    const getFile = e => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        setImage(file);
+        setFilename(file.name);
     }
 
     return(
@@ -76,14 +84,10 @@ const CreateProfile = () => {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="text">Image URL</label>
-                                <input
-                                    className="form-control"
-                                    type="text"
-                                    name="Image URL"
-                                    value={imageUrl}
-                                    onChange={(e) => setImageUrl(e.target.value)} 
-                                />
+                                <label>File</label>
+                                <br />
+                                <input className="text-white text-monospace" type="file" onChange={getFile} />
+                                <p>{filename && filename}</p>
                             </div>
                             <button className="btn btn-primary btn-lg" onClick={() => createProfile()}>Create</button>
                         </div>
