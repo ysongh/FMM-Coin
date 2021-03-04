@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { GlobalContext } from '../../context/GlobalState';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 
 const CreateProfile = () => {
     const { walletAddress } = useContext(GlobalContext);
@@ -20,15 +20,25 @@ const CreateProfile = () => {
 
     const createProfile = async () => {
         try{
-            await db.collection("musician").add({
-                name,
-                address,
-                tags,
-                imageUrl: filename,
-                likes: 0
-            });
+            const uploadFile = storage.ref(`/${filename}`).put(image);
 
-            history.push("/musicians");
+            uploadFile.on('state_changed', snapshot => {},
+                err => {
+                    console.log(err);
+                },
+                () => {
+                    uploadFile.snapshot.ref.getDownloadURL().then(async url => {
+                        await db.collection("musician").add({
+                            name,
+                            address,
+                            tags,
+                            imageUrl: url,
+                            likes: 0
+                        });
+            
+                        history.push("/musicians");
+                    })
+                })
         } catch(err){
             console.error(err);
         }
