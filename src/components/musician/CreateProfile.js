@@ -11,7 +11,7 @@ const CreateProfile = () => {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [tags, setTags] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
     const [filename, setFilename] = useState('');
 
     useEffect(() => {
@@ -20,25 +20,36 @@ const CreateProfile = () => {
 
     const createProfile = async () => {
         try{
-            const uploadFile = storage.ref(`/${filename}`).put(image);
+            if(image){
+                const uploadFile = storage.ref(`/${filename}`).put(image);
 
-            uploadFile.on('state_changed', snapshot => {},
-                err => {
-                    console.log(err);
-                },
-                () => {
-                    uploadFile.snapshot.ref.getDownloadURL().then(async url => {
-                        await db.collection("musician").add({
-                            name,
-                            address,
-                            tags,
-                            imageUrl: url,
-                            likes: 0
-                        });
-            
-                        history.push("/musicians");
+                uploadFile.on('state_changed', snapshot => {},
+                    err => {
+                        console.log(err);
+                    },
+                    () => {
+                        uploadFile.snapshot.ref.getDownloadURL().then(async url => {
+                            await db.collection("musician").add({
+                                name,
+                                address,
+                                tags,
+                                imageUrl: url,
+                                likes: 0
+                            });
+                        })
                     })
-                })
+                }
+                else{
+                    await db.collection("musician").add({
+                        name,
+                        address,
+                        tags,
+                        imageUrl: "/defaultuser.png",
+                        likes: 0
+                    });
+                }
+
+                history.push("/musicians");
         } catch(err){
             console.error(err);
         }
