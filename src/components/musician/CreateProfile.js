@@ -44,7 +44,7 @@ const CreateProfile = () => {
                         name,
                         address,
                         tags,
-                        imageUrl: "/defaultuser.png",
+                        imageUrl: "/images/defaultuser.png",
                         likes: 0
                     });
                 }
