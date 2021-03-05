@@ -37,8 +37,8 @@ const MusicianProfile = () => {
 
         async function getTransactionsHistory(musicianWalletAddress){
             try{
-                const transactions = await tokenBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
-                console.log(transactions);
+                let transactions = await tokenBlockchain.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest', filter: { _to: musicianWalletAddress }});
+                transactions = transactions.reverse();
                 setTransactions(transactions);
             } catch(err){
                 console.error(err);
@@ -80,7 +80,7 @@ const MusicianProfile = () => {
             setLoading(false);
         }
     }
-    console.log(state);
+
     return(
         <div className="container">
             <Alert msg={error}/>
