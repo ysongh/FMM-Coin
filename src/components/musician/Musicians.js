@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { db } from '../../firebase';
-import Star from '../../images/star.svg';
 
 const tags = ["None", "Rock", "Jazz", "Pop", "Hip Hop", "Folk", "Country", "Other"]
 
@@ -102,7 +101,7 @@ const Musicians = () => {
                                                 </Link>
                                             </div>
                                             <div className="col-sm-2">
-                                                <p className="card-text para">{musician.data.likes} <img className="icon" src={Star} alt="Star" /></p>
+                                                <p className="card-text para">{musician.data.likes} <img className="icon" src="/images/star.svg" alt="Star" /></p>
                                             </div>
                                         </div>
                                     </div>

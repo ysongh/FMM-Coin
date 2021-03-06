@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Logo from '../../images/logo.svg';
-
 const Footer = () => {
     return(
         <footer className="bg-light py-4">
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-6">
-                        <img className="logo mt-2" src={Logo} alt="Logo" />
+                        <img className="logo mt-2" src="/images/logo.svg" alt="Logo" />
                     </div>
                     <div className="col-6 col-md-3 mt-3">
                         <h5>Quick Link</h5>

@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import GiveCoinImg from '../images/givecoin.svg';
-import GetCoinImg from '../images/getcoin.svg';
-
 const Home = () => {
     return(
         <>
@@ -28,7 +25,7 @@ const Home = () => {
                     <h2 className="font-weight-bold mt-5">Give Token to the Musicians</h2>
                     <div className="row mb-5">
                         <div className="col-12 col-md-6">
-                            <img className="img-fluid" src={GiveCoinImg} alt="Give Coin" />
+                            <img className="img-fluid" src="/images/givecoin.svg" alt="Give Coin" />
                         </div>
                         <div className="col-12 col-md-6">
                             <p className="mt-4"><span className="badge badge-pill btn-secondary">1</span> Purchase FMM token with ETH</p>
@@ -45,7 +42,7 @@ const Home = () => {
                             <p><span className="badge badge-pill btn-secondary">4</span> Sell your token for funds</p>
                         </div>
                         <div className="col-12 col-md-6">
-                            <img className="img-fluid" src={GetCoinImg} alt="Get Coin" />
+                            <img className="img-fluid" src="/images/getcoin.svg" alt="Get Coin" />
                         </div>
                     </div>
                 </section>
