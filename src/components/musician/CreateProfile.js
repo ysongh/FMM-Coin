@@ -110,7 +110,13 @@ const CreateProfile = () => {
                                 <input className="text-white text-monospace" type="file" onChange={getFile} />
                                 <p>{filename && filename}</p>
                             </div>
-                            <button className="btn btn-primary btn-lg" onClick={() => createProfile()}>Create</button>
+                            <button
+                                className="btn btn-primary btn-lg"
+                                onClick={() => createProfile()}
+                                disabled={!name || !address || !tags}
+                            >
+                                Create
+                            </button>
                         </div>
                     </div>
                 </div>
