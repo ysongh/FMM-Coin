@@ -101,7 +101,7 @@ const Main = () => {
 
     return(
         <div className="container mb-5" style={{ minHeight: '50vh'}}>
-            <Alert msg={error}/>
+            <Alert msg={error} type="alert-danger" />
             <h1 className="mt-3 mb-4">FMM Token</h1>
 
             {walletAddress ? (

@@ -83,7 +83,7 @@ const MusicianProfile = () => {
 
     return(
         <div className="container">
-            <Alert msg={error}/>
+            <Alert msg={error} type="alert-danger" />
             <div className="row my-5">
                 <div className="col-12 col-md-4">
                     <div className="card mb-3">
