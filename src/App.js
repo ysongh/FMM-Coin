@@ -16,9 +16,7 @@ const App = () => {
     <GlobalProvider>
       <Router className="App">
         <Navbar />
-        <div className="container">
-          <Alert msg="This contract only works on Kovan Test Network" type="alert-info" />
-        </div>
+        <Alert msg="This contract only works on Kovan Test Network" type="alert-info" />
         <Route exact path="/" component={Home} />
         <Route exact path="/musicians" component={Musicians} />
         <Route exact path="/musicians/:id" component={MusicianProfile} />
