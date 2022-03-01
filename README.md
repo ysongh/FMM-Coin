@@ -15,3 +15,6 @@ A dapp that allows fans to donate token as ERC20 for funds to their favorite mus
 - Bootstrap 4
 - Firebase
 - Solidity
+
+## Disclaimer
+These contracts are not audited.  Please review this code on your own before using any of the following code for production.  I will not be responsible or liable for all loss or damage caused from this project.
