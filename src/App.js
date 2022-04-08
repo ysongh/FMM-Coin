@@ -9,14 +9,12 @@ import Musicians from './components/musician/Musicians';
 import MusicianProfile from './components/musician/MusicianProfile';
 import CreateProfile from './components/musician/CreateProfile';
 import TokenForm from './components/token-form/Main';
-import Alert from './components/common/Alert';
 
 const App = () => {
   return (
     <GlobalProvider>
       <Router className="App">
         <Navbar />
-        <Alert msg="This contract only works on Kovan Test Network" type="alert-info" />
         <Route exact path="/" component={Home} />
         <Route exact path="/musicians" component={Musicians} />
         <Route exact path="/musicians/:id" component={MusicianProfile} />
