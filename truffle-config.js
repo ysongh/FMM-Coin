@@ -1,7 +1,8 @@
 const keys = require('./config');
 
-const HDWalletProvider = require('truffle-hdwallet-provider-privkey');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 const endpointUrl = "https://poa-kovan.gateway.pokt.network/v1/" + keys.applicationId;
+const mnemonic = keys.MNEMONIC.toString().trim();
 
 module.exports = {
   networks: {
@@ -11,14 +12,7 @@ module.exports = {
      network_id: "*",       // Any network (default: none)
     },
     kovan: {
-      provider: function() {
-        return new HDWalletProvider(
-          //private keys array
-          [keys.privateKey],
-          //url to ethereum node
-          endpointUrl
-        )
-      },
+      provider: () => new HDWalletProvider(mnemonic, endpointUrl),
       gas: 5000000,
       gasPrice: 25000000000,
       network_id: 42
