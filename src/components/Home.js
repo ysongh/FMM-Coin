@@ -6,7 +6,7 @@ import Alert from './common/Alert';
 const Home = () => {
     return(
         <>
-            <Alert msg="This contract only works on Kovan Test Network" type="alert-info" />
+            <Alert msg="This contract only works on Kovan and Emerald Test Network" type="alert-info" />
             <header className="hero-img">
                 <h1 className="text-center text-white display-3 mt-5">
                     Support Our Musicians
