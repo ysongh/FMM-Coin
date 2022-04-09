@@ -16,6 +16,12 @@ module.exports = {
       gas: 5000000,
       gasPrice: 25000000000,
       network_id: 42
+    },
+    emeraldTestnet: {
+      provider: () => new HDWalletProvider(mnemonic, "https://testnet.emerald.oasis.dev"),
+      gas: 5000000,
+      gasPrice: 25000000000,
+      network_id: 42261
     }
   },
 
