@@ -1,8 +1,14 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import UAuth from '@uauth/js';
 
 import { loadWeb3, loadBlockchainData } from '../../blockchain';
 import { GlobalContext } from '../../context/GlobalState';
+
+const uauth = new UAuth({
+    clientID: "5b9e8880-8b3a-4af9-9c66-4676f8718a34",
+    redirectUri: "http://localhost:3000/",
+})
 
 const Navbar = () => {
     const { walletAddress, setWalletAddress } = useContext(GlobalContext);
@@ -13,6 +19,16 @@ const Navbar = () => {
         const accounts = await window.web3.eth.getAccounts();
         setWalletAddress(accounts[0]);
     }
+
+    const loginWithUnstoppableDomains = async () => {
+        try {
+          const authorization = await uauth.loginWithPopup();
+    
+          console.log(authorization);
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -40,6 +56,12 @@ const Navbar = () => {
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                             <button className="nav-link btn btn-primary" onClick={() => connectBlockchain()}>
                                 {walletAddress ? walletAddress.substring(0,7) + '...' + walletAddress.substring(35,42) : "Open Wallet"}
+                            </button>
+                            
+                        </li>
+                        <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+                            <button className="nav-link btn btn-primary ml-2" onClick={() => loginWithUnstoppableDomains()}>
+                                Login with Unstoppable
                             </button>
                         </li>
                     </ul>
