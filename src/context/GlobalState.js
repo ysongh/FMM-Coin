@@ -2,7 +2,8 @@ import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
 const inititalState = {
-    walletAddress: ""
+    walletAddress: "",
+    domainData: {}
 }
 
 export const GlobalContext = createContext(inititalState);
@@ -17,9 +18,18 @@ export const GlobalProvider = ({ children }) => {
         })
     }
 
+    function setDomainData(domainData){
+        dispatch({
+            type: "SET_DOMAINDATA",
+            payload: domainData
+        })
+    }
+
     return (<GlobalContext.Provider value={{
+        domainData: state.domainData,
         walletAddress: state.walletAddress,
-        setWalletAddress
+        setWalletAddress,
+        setDomainData
     }}>
         {children}
     </GlobalContext.Provider>);

@@ -5,6 +5,11 @@ export default (state, action) => {
                 ...state,
                 walletAddress: action.payload
             }
+        case "SET_DOMAINDATA":
+            return{
+                ...state,
+                domainData: action.payload
+            }
         default:
             return state;
     }

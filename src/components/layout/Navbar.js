@@ -11,7 +11,7 @@ const uauth = new UAuth({
 })
 
 const Navbar = () => {
-    const { walletAddress, setWalletAddress } = useContext(GlobalContext);
+    const { walletAddress, domainData, setWalletAddress, setDomainData } = useContext(GlobalContext);
 
     const connectBlockchain = async () => {
         await loadWeb3();
@@ -25,6 +25,7 @@ const Navbar = () => {
           const authorization = await uauth.loginWithPopup();
     
           console.log(authorization);
+          setDomainData(authorization);
         } catch (error) {
           console.error(error);
         }
@@ -61,7 +62,7 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                             <button className="nav-link btn btn-primary ml-2" onClick={() => loginWithUnstoppableDomains()}>
-                                Login with Unstoppable
+                                {domainData?.idToken?.sub ? domainData?.idToken?.sub : "Login with Unstoppable"}
                             </button>
                         </li>
                     </ul>
