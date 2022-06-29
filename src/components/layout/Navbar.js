@@ -42,7 +42,17 @@ const Navbar = () => {
         } catch (error) {
           console.error(error);
         }
-      }
+    }
+
+    const logoutFromUnstoppableDomains = async () => {
+        try {
+            await uauth.logout();
+
+            setDomainData(null);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -69,15 +79,23 @@ const Navbar = () => {
                         </li>}
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                             <button className="nav-link btn btn-primary" onClick={() => connectBlockchain()}>
-                                {walletAddress ? walletAddress.substring(0,7) + '...' + walletAddress.substring(35,42) : "Open Wallet"}
-                            </button>
-                            
-                        </li>
-                        <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                            <button className="nav-link btn btn-primary ml-2" onClick={() => loginWithUnstoppableDomains()}>
-                                {domainData?.sub ? domainData?.sub : "Login with Unstoppable"}
+                                {domainData?.sub
+                                    ? domainData?.sub
+                                    : walletAddress ? walletAddress.substring(0,7) + '...' + walletAddress.substring(35,42) : "Open Wallet"}
                             </button>
                         </li>
+                        {domainData?.sub
+                            ?   <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+                                    <button className="nav-link btn btn-danger ml-2" onClick={() => logoutFromUnstoppableDomains()}>
+                                        Logout
+                                    </button>
+                                </li>
+                            :   <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+                                    <button className="nav-link btn btn-primary ml-2" onClick={() => loginWithUnstoppableDomains()}>
+                                        Login with Unstoppable
+                                    </button>
+                                </li>
+                        }
                     </ul>
                 </div>
             </div>
