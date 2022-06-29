@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UAuth from '@uauth/js';
 
@@ -11,6 +11,18 @@ const uauth = new UAuth({
 })
 
 const Navbar = () => {
+    useEffect(() => {
+        uauth
+            .user()
+            .then(userData => {
+                console.log(userData);
+                setDomainData(userData);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }, [])
+    
     const { walletAddress, domainData, setWalletAddress, setDomainData } = useContext(GlobalContext);
 
     const connectBlockchain = async () => {
@@ -23,7 +35,8 @@ const Navbar = () => {
     const loginWithUnstoppableDomains = async () => {
         try {
           const authorization = await uauth.loginWithPopup();
-    
+          authorization.sub = authorization.idToken.sub;
+          
           console.log(authorization);
           setDomainData(authorization);
         } catch (error) {
@@ -62,7 +75,7 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                             <button className="nav-link btn btn-primary ml-2" onClick={() => loginWithUnstoppableDomains()}>
-                                {domainData?.idToken?.sub ? domainData?.idToken?.sub : "Login with Unstoppable"}
+                                {domainData?.sub ? domainData?.sub : "Login with Unstoppable"}
                             </button>
                         </li>
                     </ul>
