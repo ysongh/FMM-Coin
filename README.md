@@ -2,7 +2,26 @@
 A dapp that allows fans to donate token as ERC20 for funds to their favorite musicians
 
 - Live Site - https://fundmymusician.netlify.app/  (Only works in Kovan Test Networks)
-- Demo - https://www.youtube.com/watch?v=RldMvYpKPbM&feature=youtu.be
+
+## Info
+
+### Project name
+Fund My Musician
+
+### Link to working code in a public repo OR PR link to a public repo
+https://github.com/ysongh/FMM-Coin/tree/unstoppabledomains
+
+### Recorded video demo of the integration (max. 3 mins)
+https://youtu.be/7UhMVod7ge8
+
+### Person of contact in case there are any questions
+You Song#4593
+
+### Discord ID
+You Song#4593
+
+### UnstoppableDomain registered account email address
+ysongweb3@gmail.com
 
 ## Features
 - Fans can purchase ERC-20 called FMM
