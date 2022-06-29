@@ -7,7 +7,7 @@ import { GlobalContext } from '../../context/GlobalState';
 
 const uauth = new UAuth({
     clientID: "5b9e8880-8b3a-4af9-9c66-4676f8718a34",
-    redirectUri: "http://localhost:3000/",
+    redirectUri: "https://fundmymusician.netlify.app/",
 })
 
 const Navbar = () => {

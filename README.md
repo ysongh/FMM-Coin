@@ -17,6 +17,7 @@ A dapp that allows fans to donate token as ERC20 for funds to their favorite mus
 - Solidity
 - Truffle
 - Web3
+- Unstoppable Domains Login
 
 ## Running the dapp on local host
 - Clone or download this repository
